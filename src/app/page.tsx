@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,6 +11,9 @@ import {
   BarChart3,
   CheckCircle2,
   ArrowUpRight,
+  Globe,
+  FileText,
+  Headphones,
 } from "lucide-react";
 
 const stats = [
@@ -22,22 +26,32 @@ const services = [
   {
     icon: Zap,
     title: "Workflow Automation",
-    description: "Eliminate manual tasks and streamline your operations with intelligent automation solutions.",
+    description: "Automating repetitive tasks, notifications, document management, and business processes using cloud-based solutions.",
   },
   {
     icon: Code2,
-    title: "Custom Software",
-    description: "Tailored applications built to solve your unique business challenges.",
+    title: "Custom Software Development",
+    description: "Designing and developing web applications, dashboards, internal business tools, and mobile solutions tailored to your needs.",
   },
   {
     icon: Cloud,
     title: "Cloud Solutions",
-    description: "Secure, scalable infrastructure that grows with your business needs.",
+    description: "Implementation and management of cloud-based platforms, storage solutions, collaboration tools, and business applications.",
   },
   {
     icon: BarChart3,
-    title: "Data Analytics",
-    description: "Transform raw data into actionable insights that drive decisions.",
+    title: "Data Analytics & Reporting",
+    description: "Developing dashboards, reports, and visualization tools that transform business data into actionable insights.",
+  },
+  {
+    icon: Globe,
+    title: "Website Management",
+    description: "Website maintenance, SSL certificate management, hosting support, domain management, and security updates.",
+  },
+  {
+    icon: Headphones,
+    title: "IT Support",
+    description: "Providing troubleshooting, system administration, network support, and technology recommendations.",
   },
 ];
 
@@ -56,10 +70,29 @@ export default function HomePage() {
         {/* Background Effects */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/10 rounded-full blur-[128px]" />
+          <div className="absolute inset-0 circuit-pattern" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 py-20 text-center">
+          {/* Logo Animation */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
+          >
+            <div className="relative w-32 h-32 mx-auto">
+              <Image
+                src="/logo.png"
+                alt="H.F. Tech Consulting"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,9 +109,14 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-balance"
           >
-            Technology Solutions
+            <span className="text-accent-secondary">Smart Solutions.</span>
             <br />
-            <span className="gradient-text">That Drive Growth</span>
+            <span className="gradient-text">Real Results.</span>
+
+            
+            <span className="text-accent-secondary">Technology Solutions</span>
+            <br />
+            <span className="gradient-text">That Drive Business Growth</span>
           </motion.h1>
 
           <motion.p
@@ -87,8 +125,9 @@ export default function HomePage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
           >
-            We help organizations improve efficiency through workflow automation, 
-            custom software, cloud solutions, and strategic IT consulting.
+            We help businesses streamline operations through technology. Workflow automation, 
+            custom software development, cloud solutions, and IT support that allows you 
+            to focus on serving your customers.
           </motion.p>
 
           <motion.div
@@ -164,11 +203,14 @@ export default function HomePage() {
               What We Do
             </h2>
             <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
-              Solutions that scale with your business
+              Business Technology Consulting
+            </p>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              Helping businesses leverage technology to improve efficiency, reduce costs, and support growth.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <motion.div
                 key={service.title}
@@ -187,7 +229,7 @@ export default function HomePage() {
                   <h3 className="text-xl font-semibold text-foreground mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-sm">
                     {service.description}
                   </p>
                   <div className="mt-6 flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity">
@@ -216,9 +258,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* Healthcare Niche Section */}
       <section className="py-32 relative">
         <div className="absolute inset-0 bg-muted/30" />
+        <div className="absolute inset-0 circuit-pattern opacity-50" />
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -227,15 +270,16 @@ export default function HomePage() {
               viewport={{ once: true }}
             >
               <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
-                Why Choose Us
+                Healthcare Expertise
               </h2>
               <p className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
-                Partner with experts who deliver results
+                Specialized Solutions for Healthcare Providers
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                We combine technical expertise with business acumen to deliver 
-                solutions that not only work but drive measurable outcomes for 
-                your organization.
+                H.F. Tech Consulting specializes in helping healthcare providers, assisted living facilities, 
+                counseling practices, and home care agencies improve operations through workflow automation, 
+                digital forms, document management systems, compliance-focused technology solutions, and 
+                business process optimization.
               </p>
 
               <ul className="space-y-4">
@@ -296,7 +340,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-full blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent-secondary/10 rounded-full blur-2xl" />
             </motion.div>
           </div>
         </div>
@@ -333,7 +377,7 @@ export default function HomePage() {
                 transition={{ delay: i * 0.1 }}
                 className="relative"
               >
-                <div className="text-7xl font-bold text-muted/50 mb-4">{item.step}</div>
+                <div className="text-7xl font-bold text-accent/20 mb-4">{item.step}</div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
                 {i < 2 && (

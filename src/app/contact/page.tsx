@@ -18,7 +18,8 @@ export default function ContactPage() {
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent-secondary/5 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 circuit-pattern opacity-30" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -112,6 +113,16 @@ export default function ContactPage() {
                 For urgent matters, give us a call.
               </p>
             </div>
+
+            {/* Healthcare Note */}
+            <div className="p-6 bg-accent/5 rounded-xl border border-accent/20">
+              <h3 className="text-foreground font-semibold mb-2">Healthcare Providers</h3>
+              <p className="text-sm text-muted-foreground">
+                We specialize in helping healthcare providers, assisted living facilities, 
+                counseling practices, and home care agencies with compliance-focused 
+                technology solutions.
+              </p>
+            </div>
           </motion.div>
 
           {/* Contact Form */}
@@ -181,7 +192,7 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Company <span className="text-muted-foreground">(Optional)</span>
+                      Company / Organization <span className="text-muted-foreground">(Optional)</span>
                     </label>
                     <input
                       type="text"
@@ -190,7 +201,7 @@ export default function ContactPage() {
                       className={`w-full px-4 py-3 bg-muted border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none transition-all duration-200 ${
                         focused === "company" ? "border-accent ring-2 ring-accent/20" : "border-border"
                       }`}
-                      placeholder="Your company name"
+                      placeholder="Your company or organization name"
                     />
                   </div>
 
@@ -208,10 +219,12 @@ export default function ContactPage() {
                       <option value="">Select a service</option>
                       <option value="automation">Workflow Automation</option>
                       <option value="software">Custom Software Development</option>
-                      <option value="website">Website Development</option>
+                      <option value="website">Website Management & Support</option>
                       <option value="cloud">Cloud Solutions</option>
-                      <option value="analytics">Data Analytics</option>
-                      <option value="consulting">IT Consulting</option>
+                      <option value="analytics">Data Analytics & Reporting</option>
+                      <option value="documents">Digital Forms & Document Management</option>
+                      <option value="it-support">IT Infrastructure & Technical Support</option>
+                      <option value="healthcare">Healthcare IT Solutions</option>
                       <option value="other">Other</option>
                     </select>
                   </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 
@@ -13,8 +14,10 @@ const footerLinks = {
   ],
   services: [
     "Workflow Automation",
+    "Custom Software Development",
     "Cloud Solutions",
-    "Software Development",
+    "Data Analytics & Reporting",
+    "Website Management",
     "IT Consulting",
   ],
 };
@@ -37,7 +40,7 @@ export default function Footer() {
                 Ready to transform your business?
               </h3>
               <p className="text-muted-foreground mt-2">
-                {"Let's discuss how we can help you achieve your goals."}
+                Smart Solutions. Real Results.
               </p>
             </div>
             <Link
@@ -57,15 +60,29 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                <span className="text-accent font-bold text-lg">HF</span>
+              <div className="relative w-12 h-12">
+                <Image
+                  src="/logo.png"
+                  alt="H.F. Tech Consulting"
+                  fill
+                  className="object-contain"
+                />
               </div>
-              <span className="text-foreground font-semibold text-lg tracking-tight">
-                H.F. Tech
-              </span>
+              <div>
+                <span className="text-foreground font-bold text-lg tracking-tight block leading-tight">
+                  H.F. Tech
+                </span>
+                <span className="text-accent-secondary text-xs tracking-widest uppercase">
+                  Consulting
+                </span>
+              </div>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Technology solutions that drive business growth. Based in Houston, serving clients nationwide.
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+              Business Technology Consulting. Helping businesses leverage technology 
+              to improve efficiency, reduce costs, and support growth.
+            </p>
+            <p className="text-accent-secondary text-sm font-medium">
+              Smart Solutions. Real Results.
             </p>
           </div>
 
