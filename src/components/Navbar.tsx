@@ -37,7 +37,7 @@ export default function Navbar() {
               className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
             >
               <Mail className="w-4 h-4" />
-              hftechconsulting1@gmail.com
+              hftechconsulting@gmail.com
             </a>
 
             <a
