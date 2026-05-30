@@ -3,13 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,21 +18,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ REMOVED dropdown logic and hasDropdown
   const links = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/services", label: "Services", hasDropdown: true },
+    { href: "/services", label: "Services" },
     { href: "/contact", label: "Contact" },
-  ];
-
-  const services = [
-    "IT Infrastructure & Network Support",
-    "Cybersecurity & Compliance",
-    "Cloud Solutions & Migration",
-    "Data Backup & Disaster Recovery",
-    "Hardware & Software Support",
-    "VoIP & Communication Systems",
-    "Strategic IT Consulting",
   ];
 
   return (
@@ -49,14 +39,16 @@ export default function Navbar() {
               <Mail className="w-4 h-4" />
               hftechconsulting1@gmail.com
             </a>
+
             <a
-              href="tel:+13467802409"
+              href="tel:+12812233570"
               className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
             >
               <Phone className="w-4 h-4" />
-              (346) 780-2409
+              (281) 223-3570
             </a>
           </div>
+
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -79,6 +71,7 @@ export default function Navbar() {
         } border-b border-border`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-14 h-14">
@@ -90,6 +83,7 @@ export default function Navbar() {
                 priority
               />
             </div>
+
             <div className="hidden sm:block">
               <span className="text-foreground font-bold text-xl tracking-tight block leading-tight">
                 H.F. Tech
@@ -103,56 +97,16 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {links.map((link) => (
-              <div
+              <Link
                 key={link.href}
-                className="relative"
-                onMouseEnter={() => link.hasDropdown && setServicesOpen(true)}
-                onMouseLeave={() => link.hasDropdown && setServicesOpen(false)}
+                href={link.href}
+                className="relative px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors duration-200 group"
               >
-                <Link
-                  href={link.href}
-                  className="flex items-center gap-1 px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors duration-200 group"
-                >
-                  {link.label}
-                  {link.hasDropdown && (
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        servicesOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  )}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-accent to-accent-secondary group-hover:w-3/4 transition-all duration-300" />
-                </Link>
+                {link.label}
 
-                {/* Services Dropdown */}
-                {link.hasDropdown && (
-                  <AnimatePresence>
-                    {servicesOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 w-72 pt-2"
-                      >
-                        <div className="bg-card border border-border rounded-xl shadow-xl shadow-black/20 overflow-hidden">
-                          <div className="p-2">
-                            {services.map((service, i) => (
-                              <Link
-                                key={i}
-                                href="/services"
-                                className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-all"
-                              >
-                                {service}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                )}
-              </div>
+                {/* underline effect */}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-accent to-accent-secondary group-hover:w-3/4 transition-all duration-300" />
+              </Link>
             ))}
           </div>
 
@@ -204,6 +158,8 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* Contact Info */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -214,11 +170,14 @@ export default function Navbar() {
                     <Mail className="w-4 h-4" />
                     <span className="text-sm">hftechconsulting1@gmail.com</span>
                   </div>
+
                   <div className="flex items-center gap-3 px-4 text-muted-foreground">
                     <Phone className="w-4 h-4" />
                     <span className="text-sm">(281) 223-3570</span>
                   </div>
                 </motion.div>
+
+                {/* CTA */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

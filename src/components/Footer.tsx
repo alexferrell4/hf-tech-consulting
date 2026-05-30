@@ -43,13 +43,20 @@ export default function Footer() {
                 Smart Solutions. Real Results.
               </p>
             </div>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group whitespace-nowrap"
-            >
-              Start a Project
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+             <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="pt-4"
+                >
+                                <Link
+                href="/contact"
+                className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent to-blue-600 text-white font-semibold rounded-full"
+              >
+                Contact Us
+              </Link>
+
+                </motion.div>
           </div>
         </motion.div>
       </div>
