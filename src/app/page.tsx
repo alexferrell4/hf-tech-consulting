@@ -113,10 +113,10 @@ export default function HomePage() {
             <br />
             <span className="gradient-text">Real Results.</span>
 
-            
+
             <span className="text-accent-secondary">Technology Solutions</span>
             <br />
-            <span className="gradient-text">That Drive Business Growth</span>
+            <span className="gradient-text">That Drive Business Growth.</span>
           </motion.h1>
 
           <motion.p

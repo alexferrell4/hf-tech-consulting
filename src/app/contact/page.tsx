@@ -1,17 +1,27 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function ContactPage() {
+  const loaded = useRef(false);
+
   useEffect(() => {
+    // Prevent duplicate loading (React Strict Mode fix)
+    if (loaded.current) return;
+    loaded.current = true;
+
     const script = document.createElement("script");
     script.src = "https://form.jotform.com/jsform/261496309774065";
     script.type = "text/javascript";
     script.async = true;
 
-    document.getElementById("jotform-container")?.appendChild(script);
+    const container = document.getElementById("jotform-container");
+
+    if (container && !container.querySelector("script")) {
+      container.appendChild(script);
+    }
   }, []);
 
   return (
@@ -92,31 +102,21 @@ export default function ContactPage() {
               </div>
             </div>
 
-           {/* Response Time */}
+            {/* Response Time */}
             <div className="p-6 gradient-border">
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                <span className="text-sm font-medium text-foreground">Quick Response</span>
+                <span className="text-sm font-medium text-foreground">
+                  Quick Response
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
-                We typically respond within 24 hours during business days. 
-                For urgent matters, give us a call.
+                We typically respond within 24 hours during business days. For urgent matters, give us a call.
               </p>
             </div>
-
-            {/* Healthcare Note */}
-            <div className="p-6 bg-accent/5 rounded-xl border border-accent/20">
-              <h3 className="text-foreground font-semibold mb-2">Healthcare Providers</h3>
-              <p className="text-sm text-muted-foreground">
-                We specialize in helping healthcare providers, assisted living facilities, 
-                counseling practices, and home care agencies with compliance-focused 
-                technology solutions.
-              </p>
-            </div>
-          
           </motion.div>
 
-          {/* JOTFORM EMBED (REPLACED FORM HERE) */}
+          {/* JotForm */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
