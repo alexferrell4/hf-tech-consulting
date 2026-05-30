@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Users, Target, Lightbulb } from "lucide-react";
 
@@ -30,10 +31,12 @@ const values = [
 const expertise = [
   "Workflow Automation",
   "Custom Software",
-  "Cloud Architecture",
+  "Cloud Solutions",
   "Data Analytics",
   "Process Optimization",
   "System Integration",
+  "Healthcare IT",
+  "Document Management",
 ];
 
 export default function AboutPage() {
@@ -42,6 +45,7 @@ export default function AboutPage() {
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
+        <div className="absolute inset-0 circuit-pattern opacity-30" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -55,7 +59,8 @@ export default function AboutPage() {
             About Us
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
-            Building technology that empowers businesses
+            <span className="text-accent-secondary">Smart Solutions.</span>{" "}
+            <span className="gradient-text">Real Results.</span>
           </p>
           <p className="text-xl text-muted-foreground leading-relaxed">
             H.F. Tech Consulting helps businesses leverage technology to streamline 
@@ -90,13 +95,20 @@ export default function AboutPage() {
                 operations, ensuring that every solution not only works flawlessly but also 
                 delivers real, measurable value.
               </p>
+              <p className="text-accent-secondary font-medium">
+                {'"'}I help businesses streamline operations through technology. My services include 
+                workflow automation, custom software development, website management, cloud solutions, 
+                data analytics, and IT support. I specialize in reducing manual processes, improving 
+                efficiency, and implementing technology solutions that allow organizations to focus 
+                on serving their customers.{'"'}
+              </p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">
               {expertise.map((skill) => (
                 <span
                   key={skill}
-                  className="px-4 py-2 bg-muted rounded-full text-sm text-muted-foreground"
+                  className="px-4 py-2 bg-muted rounded-full text-sm text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors"
                 >
                   {skill}
                 </span>
@@ -113,17 +125,25 @@ export default function AboutPage() {
             >
               <div className="bg-card rounded-[calc(var(--radius)-4px)] p-8 aspect-square flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-32 h-32 mx-auto rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                    <span className="text-5xl font-bold text-accent">HF</span>
+                  <div className="relative w-40 h-40 mx-auto mb-6">
+                    <Image
+                      src="/logo.png"
+                      alt="H.F. Tech Consulting"
+                      fill
+                      className="object-contain"
+                    />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground">Harrison Ferrell</h3>
-                  <p className="text-muted-foreground mt-2">Founder & Lead Consultant</p>
+                  <p className="text-accent mt-2">Founder & Lead Consultant</p>
                   <p className="text-sm text-muted-foreground mt-1">B.S. Computer Science</p>
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <p className="text-accent-secondary text-sm font-medium">Smart Solutions. Real Results.</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
             <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl" />
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-accent/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-secondary/10 rounded-full blur-2xl" />
           </div>
         </motion.div>
 

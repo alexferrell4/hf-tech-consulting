@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,13 +37,23 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center overflow-hidden">
-            <span className="text-accent font-bold text-lg">HF</span>
-            <div className="absolute inset-0 bg-accent/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+          <div className="relative w-12 h-12 rounded-lg overflow-hidden">
+            <Image
+              src="/logo.png"
+              alt="H.F. Tech Consulting"
+              fill
+              className="object-contain"
+              priority
+            />
           </div>
-          <span className="text-foreground font-semibold text-lg tracking-tight hidden sm:block">
-            H.F. Tech
-          </span>
+          <div className="hidden sm:block">
+            <span className="text-foreground font-bold text-lg tracking-tight block leading-tight">
+              H.F. Tech
+            </span>
+            <span className="text-accent-secondary text-xs tracking-widest uppercase">
+              Consulting
+            </span>
+          </div>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">

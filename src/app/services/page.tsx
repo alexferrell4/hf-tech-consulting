@@ -18,44 +18,44 @@ const services = [
   {
     icon: Zap,
     title: "Workflow Automation",
-    description: "Streamline repetitive tasks and processes with intelligent automation. We implement solutions using tools like Zapier, Make, Power Automate, and custom integrations.",
-    features: ["Process mapping and optimization", "Custom automation workflows", "System integrations", "Automated reporting"],
+    description: "Automating repetitive tasks, notifications, document management, and business processes using cloud-based solutions like Zapier, Make, Power Automate, and custom integrations.",
+    features: ["Process mapping and optimization", "Custom automation workflows", "System integrations", "Automated reporting and notifications"],
   },
   {
     icon: Code2,
-    title: "Custom Software Development",
-    description: "Bespoke applications built to solve your unique business challenges. From web apps to internal tools, we deliver scalable solutions.",
+    title: "Custom Software & Application Development",
+    description: "Designing and developing web applications, dashboards, internal business tools, and mobile solutions tailored to organizational needs.",
     features: ["Web applications", "Internal business tools", "API development", "Mobile-responsive design"],
   },
   {
     icon: Globe,
-    title: "Website Development & Management",
-    description: "Modern, fast, and secure websites that represent your brand and convert visitors into customers.",
-    features: ["Custom website design", "E-commerce solutions", "CMS implementation", "Performance optimization"],
+    title: "Website Management & Support",
+    description: "Website maintenance, SSL certificate management, hosting support, domain management, security updates, and troubleshooting.",
+    features: ["Website maintenance", "SSL & security management", "Hosting & domain support", "Performance optimization"],
   },
   {
     icon: Cloud,
     title: "Cloud Solutions",
-    description: "Migrate to the cloud or optimize your existing infrastructure for better performance, security, and cost efficiency.",
+    description: "Implementation and management of cloud-based platforms, storage solutions, collaboration tools, and business applications.",
     features: ["Cloud migration", "Infrastructure setup", "Security configuration", "Cost optimization"],
   },
   {
     icon: BarChart3,
     title: "Data Analytics & Reporting",
-    description: "Transform your raw data into actionable insights with custom dashboards and automated reporting systems.",
+    description: "Developing dashboards, reports, and visualization tools that transform business data into actionable insights.",
     features: ["Custom dashboards", "Automated reports", "Data visualization", "KPI tracking"],
-  },
-  {
-    icon: Headphones,
-    title: "IT Consulting",
-    description: "Strategic technology guidance to help you make informed decisions about your IT investments and digital transformation.",
-    features: ["Technology assessment", "Roadmap planning", "Vendor selection", "Project management"],
   },
   {
     icon: FileText,
     title: "Digital Forms & Document Management",
-    description: "Digitize your paper processes with smart forms, automated workflows, and organized document management systems.",
+    description: "Creating electronic intake forms, document workflows, automated notifications, and secure record management systems.",
     features: ["Digital form creation", "E-signature integration", "Document automation", "Compliance tracking"],
+  },
+  {
+    icon: Headphones,
+    title: "IT Infrastructure & Technical Support",
+    description: "Providing troubleshooting, system administration, network support, and technology recommendations.",
+    features: ["Technology assessment", "System administration", "Network support", "Technology recommendations"],
   },
 ];
 
@@ -65,6 +65,7 @@ export default function ServicesPage() {
       {/* Background */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
+        <div className="absolute inset-0 circuit-pattern opacity-30" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -78,11 +79,12 @@ export default function ServicesPage() {
             Our Services
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
-            Technology solutions tailored to your needs
+            Business Technology Consulting
           </p>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            From automation to custom software, we provide comprehensive IT services 
-            that help businesses operate more efficiently and grow sustainably.
+            Helping businesses leverage technology to improve efficiency, reduce costs, 
+            and support growth. From automation to custom software, we provide comprehensive 
+            IT services tailored to your needs.
           </p>
         </motion.div>
 
@@ -129,6 +131,35 @@ export default function ServicesPage() {
             </motion.div>
           ))}
         </div>
+
+        {/* Healthcare Niche CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 gradient-border p-8 md:p-12"
+        >
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+              Healthcare Specialization
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-balance">
+              Specialized Solutions for Healthcare Providers
+            </p>
+            <p className="text-muted-foreground mb-8">
+              We specialize in helping healthcare providers, assisted living facilities, counseling practices, 
+              and home care agencies improve operations through workflow automation, digital forms, 
+              document management systems, and compliance-focused technology solutions.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+            >
+              Discuss Your Healthcare IT Needs
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div

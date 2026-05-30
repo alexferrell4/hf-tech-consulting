@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #030303;
-  --foreground: #fafafa;
-  --card: #0a0a0a;
-  --card-foreground: #fafafa;
-  --muted: #171717;
-  --muted-foreground: #a1a1aa;
-  --accent: #00ff88;
-  --accent-foreground: #030303;
-  --border: #262626;
-  --ring: #00ff88;
+  --background: #030508;
+  --foreground: #f0f4f8;
+  --card: #0a0f14;
+  --card-foreground: #f0f4f8;
+  --muted: #121a22;
+  --muted-foreground: #8b9db5;
+  --accent: #0088ff;
+  --accent-secondary: #b8c5d6;
+  --accent-foreground: #ffffff;
+  --border: #1e2a38;
+  --ring: #0088ff;
   --radius: 0.75rem;
 }
 
@@ -22,6 +23,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
@@ -49,15 +51,20 @@ body {
   color: var(--accent-foreground);
 }
 
-/* Gradient text utility */
+/* Gradient text utility - Blue to Silver */
 .gradient-text {
-  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  background: linear-gradient(135deg, #0088ff 0%, #b8c5d6 50%, #0088ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Animated gradient border */
+/* Silver text */
+.silver-text {
+  color: #b8c5d6;
+}
+
+/* Animated gradient border - Blue to Silver */
 .gradient-border {
   position: relative;
   background: var(--card);
@@ -70,24 +77,37 @@ body {
   inset: 0;
   border-radius: var(--radius);
   padding: 1px;
-  background: linear-gradient(135deg, #00ff88, #00d4ff, #00ff88);
+  background: linear-gradient(135deg, #0088ff, #b8c5d6, #0066cc);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 
-/* Glow effect */
+/* Glow effect - Blue */
 .glow {
-  box-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+  box-shadow: 0 0 40px rgba(0, 136, 255, 0.15);
+}
+
+/* Blue glow */
+.blue-glow {
+  box-shadow: 0 0 60px rgba(0, 136, 255, 0.25);
 }
 
 /* Grid pattern background */
 .grid-pattern {
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 136, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 136, 255, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+/* Circuit pattern for tech feel */
+.circuit-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 136, 255, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(184, 197, 214, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* Noise texture overlay */
@@ -102,4 +122,14 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.02;
   pointer-events: none;
+}
+
+/* Metallic shine effect */
+.metallic-shine {
+  background: linear-gradient(
+    135deg,
+    rgba(184, 197, 214, 0) 0%,
+    rgba(184, 197, 214, 0.1) 50%,
+    rgba(184, 197, 214, 0) 100%
+  );
 }
