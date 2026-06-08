@@ -232,10 +232,8 @@ export default function HomePage() {
                   <p className="text-muted-foreground leading-relaxed text-sm">
                     {service.description}
                   </p>
-                  <div className="mt-6 flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-sm font-medium">Learn more</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+              
+                 
                 </div>
               </motion.div>
             ))}
