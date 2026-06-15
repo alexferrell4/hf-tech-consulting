@@ -46,6 +46,22 @@ const services = [
     features: ["Custom dashboards", "Automated reports", "Data visualization", "KPI tracking"],
   },
   {
+  icon: BarChart3,
+  title: "Digital Marketing",
+  description:
+    "Helping businesses grow their online presence through social media management, content creation, SEO, paid advertising, branding, and data-driven marketing strategies.",
+  features: [
+    "Social media management",
+    "Content creation",
+    "SEO optimization",
+    "Email marketing",
+    "Paid advertising",
+    "Brand strategy",
+    "Analytics & performance tracking",
+    "Marketing campaign management"
+  ],
+},
+  {
     icon: FileText,
     title: "Digital Forms & Document Management",
     description: "Creating electronic intake forms, document workflows, automated notifications, and secure record management systems.",
