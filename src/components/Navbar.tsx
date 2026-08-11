@@ -33,11 +33,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-6 text-sm">
             <a
-              href="mailto:hftechconsulting1@gmail.com"
+              href="mailto:alex@hftechconsulting.com"
               className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
             >
               <Mail className="w-4 h-4" />
-              hftechconsulting@gmail.com
+              alex@hftechconsulting.com
             </a>
 
             <a
