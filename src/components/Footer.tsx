@@ -135,7 +135,7 @@ export default function Footer() {
                   <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <span className="text-sm">hftechconsulting@gmail.com</span>
+                  <span className="text-sm">alex@hftechconsulting.com</span>
                 </a>
               </li>
               <li>

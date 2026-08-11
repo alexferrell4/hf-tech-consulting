@@ -76,7 +76,7 @@ export default function ContactPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
                   <p className="text-foreground font-medium">
-                    hftechconsulting@gmail.com
+                    alex@hftechconsulting.com
                   </p>
                 </div>
               </div>

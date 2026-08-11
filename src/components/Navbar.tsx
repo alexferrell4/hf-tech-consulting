@@ -168,7 +168,7 @@ export default function Navbar() {
                 >
                   <div className="flex items-center gap-3 px-4 text-muted-foreground">
                     <Mail className="w-4 h-4" />
-                    <span className="text-sm">hftechconsulting1@gmail.com</span>
+                    <span className="text-sm">alex@hftechconsuling.com</span>
                   </div>
 
                   <div className="flex items-center gap-3 px-4 text-muted-foreground">
