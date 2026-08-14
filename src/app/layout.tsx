@@ -10,6 +10,9 @@ export const metadata = {
   title: "H.F. Tech Consulting | IT Solutions & Digital Transformation",
   description:
     "Transform your business with cutting-edge technology solutions. Workflow automation, custom software, cloud solutions, and strategic IT consulting in Houston, Texas.",
+  other: {
+    "google-adsense-account": "ca-pub-9232883271136467",
+  },
 };
 
 export default function RootLayout({
