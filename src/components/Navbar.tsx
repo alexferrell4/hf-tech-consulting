@@ -77,7 +77,7 @@ export default function Navbar() {
             <div className="relative w-14 h-14">
               <Image
                 src="/logo.png"
-                alt="H.F. Tech Consulting"
+                alt="H.F. Tech Consulting logo"
                 fill
                 className="object-contain"
                 priority
@@ -168,7 +168,7 @@ export default function Navbar() {
                 >
                   <div className="flex items-center gap-3 px-4 text-muted-foreground">
                     <Mail className="w-4 h-4" />
-                    <span className="text-sm">alex@hftechconsuling.com</span>
+                    <span className="text-sm">alex@hftechconsulting.com</span>
                   </div>
 
                   <div className="flex items-center gap-3 px-4 text-muted-foreground">

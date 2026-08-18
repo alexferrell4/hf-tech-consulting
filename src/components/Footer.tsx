@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   navigation: [
@@ -70,7 +70,7 @@ export default function Footer() {
               <div className="relative w-12 h-12">
                 <Image
                   src="/logo.png"
-                  alt="H.F. Tech Consulting"
+                  alt="H.F. Tech Consulting logo"
                   fill
                   className="object-contain"
                 />
@@ -117,7 +117,9 @@ export default function Footer() {
             <ul className="space-y-3">
               {footerLinks.services.map((service) => (
                 <li key={service} className="text-muted-foreground text-sm">
-                  {service}
+                  <Link href="/services" className="hover:text-foreground transition-colors duration-200">
+                    {service}
+                  </Link>
                 </li>
               ))}
             </ul>
