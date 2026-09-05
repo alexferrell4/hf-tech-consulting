@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ORGANIZATION_JSON_LD, WEBSITE_JSON_LD, SITE_NAME, SITE_URL, jsonLdHtml, buildOpenGraph } from "@/lib/seo";
@@ -88,6 +89,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   );
