@@ -14,11 +14,12 @@ import {
   Globe,
   Headphones,
 } from "lucide-react";
+import ClientsCarousel from "@/components/ClientsCarousel";
 
-const stats = [
-  { value: "9", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "24/7", label: "Support Available" },
+const highlights = [
+  { label: "Houston-Based", description: "Local, direct support" },
+  { label: "Custom-Built", description: "Solutions fit to your process" },
+  { label: "One Point of Contact", description: "From strategy to support" },
 ];
 
 const services = [
@@ -55,7 +56,7 @@ const services = [
 ];
 
 const benefits = [
-  "Reduce operational costs by up to 40%",
+  "Reduce time spent on manual, repetitive tasks",
   "Increase team productivity",
   "Secure and compliant solutions",
   "Dedicated support and maintenance",
@@ -147,23 +148,33 @@ export default function HomeContent() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
+          {/* Highlights */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap justify-center gap-8 sm:gap-16 mt-20"
           >
-            {stats.map((stat, i) => (
+            {highlights.map((item, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-foreground">
-                  {stat.value}
+                <div className="text-lg sm:text-xl font-bold text-foreground">
+                  {item.label}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">
-                  {stat.label}
+                  {item.description}
                 </div>
               </div>
             ))}
+          </motion.div>
+
+          {/* Trusted By */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-20"
+          >
+            <ClientsCarousel />
           </motion.div>
         </div>
 
@@ -312,21 +323,21 @@ export default function HomeContent() {
               <div className="gradient-border p-1">
                 <div className="bg-card rounded-[calc(var(--radius)-4px)] p-8">
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                      <span className="text-muted-foreground">Process Efficiency</span>
-                      <span className="text-accent font-bold">+127%</span>
+                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
+                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                      <span className="text-foreground">Less time spent on manual intake and documentation</span>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                      <span className="text-muted-foreground">Cost Reduction</span>
-                      <span className="text-accent font-bold">-42%</span>
+                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
+                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                      <span className="text-foreground">Fewer missed follow-ups and scheduling gaps</span>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                      <span className="text-muted-foreground">Time Saved Weekly</span>
-                      <span className="text-accent font-bold">15+ hrs</span>
+                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
+                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                      <span className="text-foreground">A clearer, more consistent audit trail</span>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                      <span className="text-muted-foreground">Client Retention</span>
-                      <span className="text-accent font-bold">98%</span>
+                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
+                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                      <span className="text-foreground">Secure, organized digital records</span>
                     </div>
                   </div>
                 </div>

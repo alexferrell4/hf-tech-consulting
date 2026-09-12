@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Users, Target, Lightbulb } from "lucide-react";
+import { ArrowRight, Award, Users, Target, Lightbulb, MapPin, Compass, HeartHandshake } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const values = [
   {
@@ -49,6 +50,8 @@ export default function AboutContent() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "About", href: "/about" }]} />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,6 +69,31 @@ export default function AboutContent() {
             H.F. Tech Consulting helps businesses leverage technology to streamline
             operations, reduce administrative burden, and support long-term growth.
           </p>
+        </motion.div>
+
+        {/* Our Story */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mb-32"
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6">Our Story</h2>
+          <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
+            <p>
+              H.F. Tech Consulting was built around a simple observation: most small and midsize
+              businesses need real technology expertise — the kind larger companies get from an
+              in-house IT department or a large agency retainer — but don&apos;t have the budget or
+              the day-to-day need to justify either one.
+            </p>
+            <p>
+              Instead of a large team and a rotating cast of account managers, H.F. Tech Consulting
+              works directly with each client. The person who scopes your project is the same
+              person who builds it, and the same person you call when something needs to change.
+              That direct relationship is intentional — it&apos;s what makes it possible to build
+              solutions around how a business actually operates, rather than a generic package.
+            </p>
+          </div>
         </motion.div>
 
         {/* Founder Section */}
@@ -145,6 +173,75 @@ export default function AboutContent() {
             <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl" />
             <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-accent-secondary/10 rounded-full blur-2xl" />
           </div>
+        </motion.div>
+
+        {/* Our Approach & Service Area */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid md:grid-cols-2 gap-8 mb-32"
+        >
+          <div className="gradient-border p-8">
+            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
+              <Compass className="w-6 h-6 text-accent" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Our Approach</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Every engagement starts with understanding how your business actually operates today —
+              not just which software you think you need. From there, we recommend the smallest
+              solution that solves the real problem, whether that&apos;s a single automated workflow
+              or a custom-built application. We&apos;d rather fix the right thing than sell you
+              something bigger than you need.
+            </p>
+          </div>
+
+          <div className="gradient-border p-8">
+            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
+              <MapPin className="w-6 h-6 text-accent" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Service Area</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              H.F. Tech Consulting is based in Houston, Texas, and works with businesses throughout
+              the Greater Houston area and across Texas. Because most of what we do — automation,
+              custom software, cloud setup, and IT support — can be delivered remotely, we&apos;re
+              also able to support clients beyond Texas where it makes sense.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Why Clients Choose Us */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-32"
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
+              <HeartHandshake className="w-5 h-5 text-accent" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+              Why Clients Choose H.F. Tech Consulting
+            </h2>
+          </div>
+          <ul className="grid sm:grid-cols-2 gap-4">
+            {[
+              "Direct access to the person doing the work — not a rotating account team",
+              "Solutions built around your actual process, not a one-size-fits-all package",
+              "Specialized experience with healthcare, home care, and counseling organizations",
+              "Houston-based, with the flexibility to support remote and hybrid teams",
+              "One partner for automation, software, cloud, and IT support instead of several vendors",
+              "Clear, honest recommendations — including telling you when you don't need something",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 p-4 bg-muted/50 rounded-xl">
+                <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Target className="w-3.5 h-3.5 text-accent" />
+                </div>
+                <span className="text-foreground text-sm leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
         {/* Values Section */}

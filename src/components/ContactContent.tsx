@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ContactContent() {
   const loaded = useRef(false);
@@ -34,6 +35,8 @@ export default function ContactContent() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]} />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

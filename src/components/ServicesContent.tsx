@@ -2,28 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Zap,
-  Cloud,
-  Code2,
-  BarChart3,
-  Globe,
-  FileText,
-  Headphones,
-  CheckCircle2,
-} from "lucide-react";
-import { services, faqs, type ServiceIconKey } from "@/lib/services-data";
-
-const iconMap: Record<ServiceIconKey, typeof Zap> = {
-  Zap,
-  Code2,
-  Globe,
-  Cloud,
-  BarChart3,
-  FileText,
-  Headphones,
-};
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { services, faqs } from "@/lib/services-data";
+import { serviceIconMap } from "@/lib/service-icons";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default function ServicesContent() {
   return (
@@ -35,6 +17,8 @@ export default function ServicesContent() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Services", href: "/services" }]} />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,16 +54,25 @@ export default function ServicesContent() {
                 <div>
                   <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
                     {(() => {
-                      const Icon = iconMap[service.icon];
+                      const Icon = serviceIconMap[service.icon];
                       return <Icon className="w-7 h-7 text-accent" />;
                     })()}
                   </div>
                   <h2 className="text-2xl font-bold text-foreground mb-3">
-                    {service.title}
+                    <Link href={`/services/${service.slug}`} className="hover:text-accent transition-colors">
+                      {service.title}
+                    </Link>
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="inline-flex items-center gap-2 mt-4 text-accent hover:text-accent/80 transition-colors text-sm font-medium group/link"
+                  >
+                    Learn more
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
 
                 {/* Features */}

@@ -4,21 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { services } from "@/lib/services-data";
 
 const footerLinks = {
   navigation: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
+    { label: "Healthcare", href: "/industries/healthcare" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
-  ],
-  services: [
-    "Workflow Automation",
-    "Custom Software Development",
-    "Cloud Solutions",
-    "Data Analytics & Reporting",
-    "Website Management",
-    "IT Consulting",
   ],
 };
 
@@ -115,10 +110,13 @@ export default function Footer() {
           <div>
             <h4 className="text-foreground font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
-              {footerLinks.services.map((service) => (
-                <li key={service} className="text-muted-foreground text-sm">
-                  <Link href="/services" className="hover:text-foreground transition-colors duration-200">
-                    {service}
+              {services.map((service) => (
+                <li key={service.slug} className="text-muted-foreground text-sm">
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="hover:text-foreground transition-colors duration-200"
+                  >
+                    {service.shortTitle}
                   </Link>
                 </li>
               ))}

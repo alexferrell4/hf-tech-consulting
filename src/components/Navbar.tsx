@@ -21,8 +21,10 @@ export default function Navbar() {
   // ✅ REMOVED dropdown logic and hasDropdown
   const links = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
+    { href: "/industries/healthcare", label: "Healthcare" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
 
