@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { clients } from "@/lib/clients-data";
 
 export default function ClientsCarousel() {
@@ -16,27 +19,34 @@ export default function ClientsCarousel() {
       <div className="relative overflow-hidden marquee-fade">
         <div className="flex w-max marquee-track">
           {track.map((client, i) => (
-            <div
+            <motion.div
               key={`${client.name}-${i}`}
               className="flex items-center justify-center px-10 shrink-0"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 18,
+                delay: 0.6 + (i % clients.length) * 0.08,
+              }}
+              whileHover={{ scale: 1.12 }}
             >
               {client.logoSrc ? (
-                <div className="h-14 w-40 rounded-lg bg-white p-2.5 shadow-sm opacity-80 hover:opacity-100 transition-opacity duration-300">
-                  <div className="relative h-full w-full">
-                    <Image
-                      src={client.logoSrc}
-                      alt={client.name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
+                <div className="relative h-12 w-36">
+                  <Image
+                    src={client.logoSrc}
+                    alt={client.name}
+                    fill
+                    className="object-contain"
+                  />
                 </div>
               ) : (
                 <span className="text-lg font-semibold tracking-tight text-muted-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
                   {client.name}
                 </span>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
