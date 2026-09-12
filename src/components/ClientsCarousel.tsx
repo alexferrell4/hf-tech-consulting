@@ -21,13 +21,15 @@ export default function ClientsCarousel() {
               className="flex items-center justify-center px-10 shrink-0"
             >
               {client.logoSrc ? (
-                <div className="relative h-8 w-32 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300">
-                  <Image
-                    src={client.logoSrc}
-                    alt={client.name}
-                    fill
-                    className="object-contain"
-                  />
+                <div className="h-14 w-40 rounded-lg bg-white p-2.5 shadow-sm opacity-80 hover:opacity-100 transition-opacity duration-300">
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={client.logoSrc}
+                      alt={client.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
               ) : (
                 <span className="text-lg font-semibold tracking-tight text-muted-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
