@@ -13,6 +13,7 @@ const footerLinks = {
     { label: "Services", href: "/services" },
     { label: "Healthcare", href: "/industries/healthcare" },
     { label: "Blog", href: "/blog" },
+    { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
   ],
 };
