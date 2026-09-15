@@ -109,7 +109,7 @@ export default function HomeContent() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-balance"
           >
-            <span className="text-accent-secondary">Smart Solutions.</span>
+            <span className="text-accent-secondary">Smart Solutions. Real Results.</span>
             <br />
             <span className="gradient-text">Technology That Drives Business Growth.</span>
           </motion.h1>
