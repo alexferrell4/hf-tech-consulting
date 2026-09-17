@@ -16,6 +16,8 @@ export type BlogPost = {
   intro: string[];
   sections: BlogSection[];
   relatedServices: string[];
+  image?: string;
+  gallery?: string[];
 };
 
 export const posts: BlogPost[] = [
@@ -307,6 +309,70 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["it-support", "cloud-solutions"],
+  },
+  {
+    slug: "compudopt-computer-giveaway-75-computers",
+    title: "Nixon Home Care x Compudopt x H.F. Tech Consulting: 75 Computers Given Away",
+    description:
+      "Nixon Home Care, Compudopt, and H.F. Tech Consulting teamed up today to give away 75 computers to individuals and families in the Houston community, helping close the digital divide one household at a time.",
+    excerpt:
+      "Today, Nixon Home Care, Compudopt, and H.F. Tech Consulting partnered to put 75 computers into the hands of Houston-area families — recapping the day in photos.",
+    category: "Community",
+    publishedAt: "2026-09-17",
+    author: "Harrison Ferrell",
+    image: "/blog/compudopt-giveaway/compudopt-24.jpg",
+    gallery: [
+      "/blog/compudopt-giveaway/compudopt-24.jpg",
+      "/blog/compudopt-giveaway/compudopt-23.jpg",
+      "/blog/compudopt-giveaway/compudopt-14.jpg",
+      "/blog/compudopt-giveaway/compudopt-01.jpg",
+      "/blog/compudopt-giveaway/compudopt-02.jpg",
+      "/blog/compudopt-giveaway/compudopt-03.jpg",
+      "/blog/compudopt-giveaway/compudopt-04.jpg",
+      "/blog/compudopt-giveaway/compudopt-05.jpg",
+      "/blog/compudopt-giveaway/compudopt-06.jpg",
+      "/blog/compudopt-giveaway/compudopt-07.jpg",
+      "/blog/compudopt-giveaway/compudopt-08.jpg",
+      "/blog/compudopt-giveaway/compudopt-09.jpg",
+      "/blog/compudopt-giveaway/compudopt-10.jpg",
+      "/blog/compudopt-giveaway/compudopt-11.jpg",
+      "/blog/compudopt-giveaway/compudopt-12.jpg",
+      "/blog/compudopt-giveaway/compudopt-13.jpg",
+      "/blog/compudopt-giveaway/compudopt-15.jpg",
+      "/blog/compudopt-giveaway/compudopt-16.jpg",
+      "/blog/compudopt-giveaway/compudopt-17.jpg",
+      "/blog/compudopt-giveaway/compudopt-18.jpg",
+      "/blog/compudopt-giveaway/compudopt-19.jpg",
+      "/blog/compudopt-giveaway/compudopt-20.jpg",
+      "/blog/compudopt-giveaway/compudopt-21.jpg",
+      "/blog/compudopt-giveaway/compudopt-22.jpg",
+    ],
+    intro: [
+      "Today, Nixon Home Care, Compudopt, and H.F. Tech Consulting teamed up for a computer giveaway event in the Houston community — and by the end of the day, 75 computers had gone home with individuals and families who needed them.",
+    ],
+    sections: [
+      {
+        heading: "About the partnership",
+        paragraphs: [
+          "Nixon Home Care hosted the event and helped connect the giveaway with the individuals and families who needed it most. Compudopt is a nonprofit focused on closing the digital divide — its mission, printed right on the side of the van we worked out of today, is \"Empowering youth through technology. Power. Learn. Thrive.\" Every recipient walked away with a Compudopt tote bag, connected by AT&T, containing a refurbished computer ready to use.",
+          "Access to a reliable computer affects far more than convenience — it's schoolwork, job applications, telehealth appointments, and staying connected with family. Events like today's put that access directly into the hands of people who need it most, at no cost to them.",
+        ],
+      },
+      {
+        heading: "75 computers, one afternoon",
+        paragraphs: [
+          "Volunteers spent the day checking in registrants, unloading and organizing devices from the Compudopt van, and walking each recipient through pickup. It was a steady stream of people all afternoon — a reminder of just how much demand there is for something a lot of us take for granted.",
+          "For H.F. Tech Consulting, it was also a natural fit. Our day-to-day work is about making technology more accessible for the businesses we serve; today was a chance to do the same thing for our own community, alongside partners like Nixon Home Care and Compudopt who see that need firsthand.",
+        ],
+      },
+      {
+        heading: "Thank you",
+        paragraphs: [
+          "Thank you to Nixon Home Care for hosting and helping organize the day, to Compudopt for providing the computers, to every volunteer who gave up their afternoon, and most of all to the 75 individuals and families who joined us today. We're already looking forward to the next one.",
+        ],
+      },
+    ],
+    relatedServices: [],
   },
 ];
 

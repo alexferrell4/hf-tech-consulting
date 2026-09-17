@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -6,6 +7,7 @@ import { posts, getPostBySlug, estimateReadingTime } from "@/lib/blog-data";
 import { services } from "@/lib/services-data";
 import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, SITE_URL } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import BlogGallery from "@/components/BlogGallery";
 
 export function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
@@ -31,6 +33,9 @@ export async function generateMetadata({
         path: `/blog/${post.slug}`,
         title: post.title,
         description: post.description,
+      }),
+      ...(post.image && {
+        images: [{ url: post.image, width: 1500, height: 2000, alt: post.title }],
       }),
       type: "article",
       publishedTime: post.publishedAt,
@@ -74,7 +79,7 @@ export default async function BlogPostPage({
     author: { "@type": "Person", name: post.author },
     publisher: { "@id": `${SITE_URL}/#organization` },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${post.slug}` },
-    image: `${SITE_URL}/logo.png`,
+    image: `${SITE_URL}${post.image ?? "/logo.png"}`,
     url: `${SITE_URL}/blog/${post.slug}`,
   };
 
@@ -113,6 +118,21 @@ export default async function BlogPostPage({
             {post.title}
           </h1>
 
+          {post.image && (
+            <div className="relative gradient-border p-2 mb-12">
+              <div className="relative w-full h-[65vh] max-h-180 min-h-80 rounded-[calc(var(--radius)-6px)] overflow-hidden bg-muted">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          )}
+
           <div className="space-y-4 mb-12">
             {post.intro.map((paragraph, i) => (
               <p key={i} className="text-xl text-muted-foreground leading-relaxed">
@@ -147,6 +167,15 @@ export default async function BlogPostPage({
               </section>
             ))}
           </div>
+
+          {post.gallery && post.gallery.length > 0 && (
+            <section className="mt-16 pt-8 border-t border-border">
+              <h2 className="text-sm uppercase tracking-widest text-accent mb-6">
+                Photos from the Day
+              </h2>
+              <BlogGallery images={post.gallery} alt={post.title} />
+            </section>
+          )}
 
           {relatedServices.length > 0 && (
             <section className="mt-16 pt-8 border-t border-border">

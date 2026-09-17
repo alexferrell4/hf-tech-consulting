@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSortedPosts, estimateReadingTime } from "@/lib/blog-data";
@@ -81,26 +82,39 @@ export default function BlogIndexPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group gradient-border p-6 hover:glow transition-shadow duration-300 flex flex-col"
+                className="group gradient-border overflow-hidden hover:glow transition-shadow duration-300 flex flex-col"
               >
-                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
-                  <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium">
-                    {post.category}
+                {post.image && (
+                  <div className="relative w-full h-48 bg-muted">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
+                    <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium">
+                      {post.category}
+                    </span>
+                    <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                    <span>·</span>
+                    <span>{estimateReadingTime(post)} min read</span>
+                  </div>
+                  <h2 className="text-xl font-semibold text-foreground mb-3 group-hover:text-accent transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                    {post.excerpt}
+                  </p>
+                  <span className="inline-flex items-center gap-2 text-accent text-sm font-medium">
+                    Read article
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-                  <span>·</span>
-                  <span>{estimateReadingTime(post)} min read</span>
                 </div>
-                <h2 className="text-xl font-semibold text-foreground mb-3 group-hover:text-accent transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
-                  {post.excerpt}
-                </p>
-                <span className="inline-flex items-center gap-2 text-accent text-sm font-medium">
-                  Read article
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </span>
               </Link>
             ))}
           </div>
