@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -15,6 +15,8 @@ import {
   Headphones,
 } from "lucide-react";
 import ClientsCarousel from "@/components/ClientsCarousel";
+
+const Logo3D = dynamic(() => import("@/components/Logo3D"), { ssr: false });
 
 const highlights = [
   { label: "Houston-Based", description: "Local, direct support" },
@@ -82,14 +84,8 @@ export default function HomeContent() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <div className="relative w-32 h-32 mx-auto">
-              <Image
-                src="/logo.png"
-                alt="H.F. Tech Consulting logo"
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 mx-auto">
+              <Logo3D />
             </div>
           </motion.div>
 
