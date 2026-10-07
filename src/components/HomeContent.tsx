@@ -38,7 +38,7 @@ const services = [
   {
     icon: Cloud,
     title: "Cloud Solutions",
-    description: "Implementation and management of cloud-based platforms, storage solutions, collaboration tools, and business applications.",
+    description: "Private cloud infrastructure, setup, security configuration, and cost optimization, with migration to platforms like Microsoft 365 or Google Workspace when it's the better fit.",
   },
   {
     icon: BarChart3,

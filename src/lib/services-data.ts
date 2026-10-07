@@ -200,54 +200,60 @@ export const services: Service[] = [
     title: "Cloud Solutions",
     shortTitle: "Cloud Solutions",
     description:
-      "Implementation and management of cloud-based platforms, storage solutions, collaboration tools, and business applications.",
+      "Private cloud infrastructure, setup, security configuration, and cost optimization — with migration to platforms like Microsoft 365 or Google Workspace when that's the better fit.",
     metaDescription:
-      "Cloud solutions for small and midsize businesses in Houston, TX — cloud migration, infrastructure setup, and secure collaboration tools tailored to how your team works.",
+      "Private cloud infrastructure, setup, security configuration, and cost optimization for Houston-area businesses, with migration to Microsoft 365, Google Workspace, and similar platforms when needed.",
     features: [
-      "Cloud migration",
+      "Private cloud infrastructure",
       "Infrastructure setup",
       "Security configuration",
       "Cost optimization",
+      "Migration to Microsoft 365, Google Workspace, and similar platforms",
     ],
     intro:
-      "Cloud solutions cover the platforms, storage, and collaboration tools — like Microsoft 365, Google Workspace, or cloud storage and backup systems — that let your business run and be accessed from anywhere, securely.",
+      "Cloud solutions start with the infrastructure itself — private cloud environments built, configured, and secured around how your business actually operates, with cost optimization so you're not paying for capacity you don't use. For businesses that are a better fit for an established platform, we also handle migration to tools like Microsoft 365 or Google Workspace.",
     problem: [
       "Businesses that still rely on local file storage, on-premise servers, or a mix of personal accounts for file sharing tend to run into the same issues: files that only exist on one computer, no reliable backup, and no clear way for a remote or growing team to collaborate. When a laptop is lost or a hard drive fails, there's often no real recovery plan.",
-      "Moving to the cloud solves the availability problem, but it introduces a new one if it's done carelessly: misconfigured sharing permissions, unmanaged storage costs, and accounts with no consistent security settings. The goal isn't just to move data to the cloud — it's to do it in a way that's secure, organized, and actually cheaper and easier to manage than what you had before.",
+      "The right fix isn't always a one-size-fits-all platform migration. Some businesses are better served by a private cloud environment — infrastructure built and configured specifically around their systems, with security and cost control designed in from the start. Others are a better fit for an established platform like Microsoft 365 or Google Workspace. Either way, the goal is the same: secure, organized, and actually cheaper and easier to manage than what you had before.",
     ],
     whoFor: [
+      "Businesses that need dedicated, private infrastructure rather than a shared consumer platform",
       "Businesses still relying on local storage, personal drives, or no formal backup system",
       "Teams that work remotely, across multiple locations, or need to collaborate in real time",
-      "Businesses migrating from an outdated on-premise server or legacy system",
-      "Organizations that need clearer control over file access, sharing, and permissions",
+      "Organizations that need clearer control over infrastructure, security, and cost",
     ],
     process: [
       {
         title: "Assessment",
         description:
-          "We review your current storage, tools, and team structure to determine the right cloud platform and setup for how you actually work.",
+          "We review your current infrastructure, security needs, and budget to determine whether a private cloud environment or an established platform like Microsoft 365 or Google Workspace is the right fit.",
       },
       {
-        title: "Migration Planning",
+        title: "Infrastructure Setup",
         description:
-          "We plan the move to avoid downtime or data loss, including how existing files and permissions will be organized in the new environment.",
+          "We build and configure the cloud environment — private infrastructure or a hosted platform — around how your team actually works.",
       },
       {
-        title: "Implementation",
+        title: "Security Configuration",
         description:
-          "We configure the platform, set up secure sharing and permissions, and migrate your data.",
+          "We lock down access, permissions, and data protection from the start, rather than bolting security on after the fact.",
       },
       {
-        title: "Training & Support",
+        title: "Cost Optimization",
         description:
-          "We train your team on the new tools and remain available to adjust configuration and troubleshoot as you settle in.",
+          "We size and monitor the environment so you're paying for the capacity you actually use, not a default plan.",
+      },
+      {
+        title: "Migration (When It's the Right Fit)",
+        description:
+          "For businesses better suited to an established platform, we handle the move to Microsoft 365, Google Workspace, or similar — without downtime or data loss.",
       },
     ],
     outcomes: [
-      "Files and data accessible securely from anywhere, on any device",
+      "Private cloud infrastructure built and secured around how your business actually works",
       "A real backup and recovery plan instead of relying on a single computer",
-      "Clearer, more consistent control over who can access what",
-      "Cloud costs and storage organized around what your business actually needs",
+      "Clearer, more consistent control over infrastructure access and security",
+      "Cloud costs and capacity optimized around what your business actually needs",
     ],
   },
   {
