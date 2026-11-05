@@ -6,7 +6,7 @@ import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, SITE_NAME, SITE_URL } fro
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Workflow automation, custom software development, cloud solutions, data analytics, website management, digital forms, and IT support for businesses in Houston, TX and beyond.",
+    "Workflow automation, custom software, cloud solutions, data analytics, website management, and IT support for Houston, TX businesses.",
   alternates: {
     canonical: "/services",
   },

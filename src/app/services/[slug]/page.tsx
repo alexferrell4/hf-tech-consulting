@@ -21,14 +21,16 @@ export async function generateMetadata({
   if (!service) return {};
 
   return {
-    title: service.title,
+    // shortTitle keeps the <title> tag within Google's ~60-char display
+    // budget; the page's own H1 still uses the full service.title.
+    title: service.shortTitle,
     description: service.metaDescription,
     alternates: {
       canonical: `/services/${service.slug}`,
     },
     openGraph: buildOpenGraph({
       path: `/services/${service.slug}`,
-      title: `${service.title} | ${SITE_NAME}`,
+      title: `${service.shortTitle} | ${SITE_NAME}`,
       description: service.metaDescription,
     }),
   };
@@ -92,9 +94,7 @@ export default async function ServiceDetailPage({
             ]}
           />
 
-          <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-6">
-            <Icon className="w-7 h-7 text-accent" />
-          </div>
+          <Icon className="w-7 h-7 text-accent mb-6" strokeWidth={1.5} />
 
           <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
             {service.title}
@@ -119,10 +119,10 @@ export default async function ServiceDetailPage({
           {/* What's Included */}
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">What&apos;s Included</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 border-t border-border">
               {service.features.map((feature) => (
-                <div key={feature} className="flex items-center gap-3 p-4 bg-muted/50 rounded-xl">
-                  <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
+                <div key={feature} className="flex items-center gap-3 py-3.5 border-b border-border">
+                  <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" strokeWidth={1.75} />
                   <span className="text-foreground">{feature}</span>
                 </div>
               ))}
@@ -132,12 +132,10 @@ export default async function ServiceDetailPage({
           {/* Who This Is For */}
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">Who This Is For</h2>
-            <ul className="space-y-3">
+            <ul className="border-t border-border">
               {service.whoFor.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-4 h-4 text-accent" />
-                  </div>
+                <li key={item} className="flex items-start gap-3 py-3.5 border-b border-border">
+                  <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.75} />
                   <span className="text-muted-foreground leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -149,11 +147,9 @@ export default async function ServiceDetailPage({
             <h2 className="text-2xl font-bold text-foreground mb-8">Our Process</h2>
             <div className="grid sm:grid-cols-2 gap-8">
               {service.process.map((step, i) => (
-                <div key={step.title} className="relative">
-                  <div className="text-4xl font-bold text-accent/20 mb-2">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                <div key={step.title} className="relative pt-4 border-t border-border">
+                  <span className="index-mark text-xs">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="text-lg font-semibold text-foreground mt-2 mb-2">{step.title}</h3>
                   <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
                 </div>
               ))}
@@ -161,14 +157,12 @@ export default async function ServiceDetailPage({
           </section>
 
           {/* Outcomes */}
-          <section className="mb-16 gradient-border p-8">
+          <section className="mb-16 panel p-8">
             <h2 className="text-2xl font-bold text-foreground mb-6">What You Can Expect</h2>
-            <ul className="space-y-3">
+            <ul className="border-t border-border">
               {service.outcomes.map((outcome) => (
-                <li key={outcome} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-4 h-4 text-accent" />
-                  </div>
+                <li key={outcome} className="flex items-start gap-3 py-3.5 border-b border-border">
+                  <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.75} />
                   <span className="text-foreground leading-relaxed">{outcome}</span>
                 </li>
               ))}
@@ -185,7 +179,7 @@ export default async function ServiceDetailPage({
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
               Schedule Consultation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -194,7 +188,7 @@ export default async function ServiceDetailPage({
 
           {/* Related Services */}
           <section className="border-t border-border pt-12">
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-6">
+            <h2 className="eyebrow mb-6">
               Related Services
             </h2>
             <div className="grid sm:grid-cols-3 gap-4">

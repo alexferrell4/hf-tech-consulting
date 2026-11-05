@@ -29,7 +29,7 @@ export default function FaqContent() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mb-16"
         >
-          <h1 className="text-sm uppercase tracking-widest text-accent mb-4">
+          <h1 className="eyebrow mb-4">
             Frequently Asked Questions
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
@@ -57,7 +57,7 @@ export default function FaqContent() {
                 {category.faqs.map((faq) => {
                   const isOpen = openQuestion === faq.question;
                   return (
-                    <div key={faq.question} className="gradient-border overflow-hidden">
+                    <div key={faq.question} className="panel overflow-hidden">
                       <button
                         onClick={() => setOpenQuestion(isOpen ? null : faq.question)}
                         aria-expanded={isOpen}
@@ -107,7 +107,7 @@ export default function FaqContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
           >
             {"Get in Touch"}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

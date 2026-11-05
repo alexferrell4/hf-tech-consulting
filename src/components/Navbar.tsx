@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +20,30 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [open]);
+
+  // Close the mobile menu automatically on route change (e.g. back/forward
+  // nav) — in-app link clicks already close it via onClick, this only covers
+  // browser history navigation while the menu happens to be open.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+
   // ✅ REMOVED dropdown logic and hasDropdown
   const links = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
-    { href: "/industries/healthcare", label: "Healthcare" },
     { href: "/blog", label: "Blog" },
     { href: "/faq", label: "FAQ" },
     { href: "/about", label: "About" },
@@ -77,11 +98,12 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-14 h-14">
+            <div className="relative w-12 h-12">
               <Image
-                src="/logo.png"
+                src="/logo-emblem.png"
                 alt="H.F. Tech Consulting logo"
                 fill
+                sizes="48px"
                 className="object-contain"
                 priority
               />
@@ -99,27 +121,37 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative px-4 py-2 text-foreground/80 hover:text-foreground font-medium transition-colors duration-200 group"
-              >
-                {link.label}
+            {links.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative px-4 py-2 font-medium transition-colors duration-200 group ${
+                    active ? "text-foreground" : "text-foreground/80 hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
 
-                {/* underline effect */}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-accent to-accent-secondary group-hover:w-3/4 transition-all duration-300" />
-              </Link>
-            ))}
+                  {/* underline effect */}
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-accent to-accent-secondary transition-all duration-300 ${
+                      active ? "w-3/4" : "w-0 group-hover:w-3/4"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/contact"
-              className="relative inline-flex items-center gap-2 px-6 py-2.5 font-semibold rounded-full overflow-hidden group"
+              className="relative inline-flex items-center gap-2 px-6 py-2.5 font-semibold rounded-full overflow-hidden group active:scale-[0.97] transition-transform duration-200"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-accent to-blue-600 transition-transform duration-300 group-hover:scale-105" />
+              <span className="absolute inset-0 bg-gradient-to-r from-accent-cta to-blue-600 transition-transform duration-300 group-hover:scale-105" />
               <span className="relative text-white">Contact Us</span>
             </Link>
           </div>
@@ -155,7 +187,12 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="block py-3 px-4 text-lg text-foreground hover:bg-muted rounded-lg transition-all font-medium"
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                      className={`block py-3 px-4 text-lg rounded-lg transition-all font-medium ${
+                        isActive(link.href)
+                          ? "text-accent bg-accent/10"
+                          : "text-foreground hover:bg-muted"
+                      }`}
                     >
                       {link.label}
                     </Link>
@@ -190,7 +227,7 @@ export default function Navbar() {
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent to-blue-600 text-white font-semibold rounded-full"
+                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
                   >
                     Contact Us
                   </Link>

@@ -38,6 +38,7 @@ export default function ClientsCarousel() {
                     src={client.logoSrc}
                     alt={client.name}
                     fill
+                    sizes="144px"
                     className="object-contain"
                   />
                 </div>

@@ -25,7 +25,7 @@ export default function ServicesContent() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mb-20"
         >
-          <h1 className="text-sm uppercase tracking-widest text-accent mb-4">
+          <h1 className="eyebrow mb-4">
             IT & Technology Consulting Services
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
@@ -47,16 +47,18 @@ export default function ServicesContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group gradient-border p-8 md:p-10 hover:glow transition-shadow duration-500"
+              whileHover={{ y: -3 }}
+              className="group panel p-8 md:p-10"
             >
               <div className="grid lg:grid-cols-3 gap-8 items-start">
                 {/* Icon & Title */}
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+                  <div className="flex items-center justify-between mb-6">
                     {(() => {
                       const Icon = serviceIconMap[service.icon];
-                      return <Icon className="w-7 h-7 text-accent" />;
+                      return <Icon className="w-7 h-7 text-accent" strokeWidth={1.5} />;
                     })()}
+                    <span className="index-mark text-sm">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <h2 className="text-2xl font-bold text-foreground mb-3">
                     <Link href={`/services/${service.slug}`} className="hover:text-accent transition-colors">
@@ -70,21 +72,18 @@ export default function ServicesContent() {
                     href={`/services/${service.slug}`}
                     className="inline-flex items-center gap-2 mt-4 text-accent hover:text-accent/80 transition-colors text-sm font-medium group/link"
                   >
-                    Learn more
-                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
+                    Learn more<span className="sr-only"> about {service.title}</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" aria-hidden="true" />
                   </Link>
                 </div>
 
                 {/* Features */}
-                <div className="lg:col-span-2">
-                  <div className="grid sm:grid-cols-2 gap-4">
+                <div className="lg:col-span-2 lg:border-l lg:border-border lg:pl-8">
+                  <div className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
                     {service.features.map((feature) => (
-                      <div
-                        key={feature}
-                        className="flex items-center gap-3 p-4 bg-muted/50 rounded-xl"
-                      >
-                        <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
+                      <div key={feature} className="flex items-center gap-3 py-2.5">
+                        <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" strokeWidth={1.75} />
+                        <span className="text-foreground text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -94,7 +93,7 @@ export default function ServicesContent() {
           ))}
         </div>
 
-        {/* Healthcare Niche CTA */}
+        {/* Compliance-Sensitive Industries CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,22 +101,22 @@ export default function ServicesContent() {
           className="mt-20 gradient-border p-8 md:p-12"
         >
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
-              Healthcare Specialization
+            <h2 className="eyebrow mb-4">
+              Industries We Understand
             </h2>
             <p className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-balance">
-              Specialized Solutions for Healthcare Providers
+              Experience Across a Range of Businesses — Including Compliance-Sensitive Ones
             </p>
             <p className="text-muted-foreground mb-8">
-              We specialize in helping healthcare providers, assisted living facilities, counseling practices,
-              and home care agencies improve operations through workflow automation, digital forms,
-              document management systems, and compliance-focused technology solutions.
+              Alongside general small and midsize businesses, we bring specific experience with
+              healthcare providers, assisted living facilities, counseling practices, and home care
+              agencies — organizations where documentation, privacy, and compliance carry extra weight.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
-              Discuss Your Healthcare IT Needs
+              Talk to Us About Your Industry
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -131,7 +130,7 @@ export default function ServicesContent() {
           className="mt-32"
         >
           <div className="text-center mb-16">
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+            <h2 className="eyebrow mb-4">
               FAQ
             </h2>
             <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
@@ -141,7 +140,7 @@ export default function ServicesContent() {
 
           <div className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq) => (
-              <div key={faq.question} className="gradient-border p-6">
+              <div key={faq.question} className="panel p-6">
                 <h3 className="text-lg font-semibold text-foreground mb-2">
                   {faq.question}
                 </h3>
@@ -166,7 +165,7 @@ export default function ServicesContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
           >
             Get in Touch
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

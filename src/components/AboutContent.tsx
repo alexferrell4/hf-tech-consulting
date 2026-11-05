@@ -58,7 +58,7 @@ export default function AboutContent() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mb-20"
         >
-          <h1 className="text-sm uppercase tracking-widest text-accent mb-4">
+          <h1 className="eyebrow mb-4">
             About H.F. Tech Consulting
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
@@ -153,11 +153,12 @@ export default function AboutContent() {
             >
               <div className="bg-card rounded-[calc(var(--radius)-4px)] p-8 aspect-square flex items-center justify-center">
                 <div className="text-center">
-                  <div className="relative w-40 h-40 mx-auto mb-6">
+                  <div className="relative w-32 h-32 mx-auto mb-6">
                     <Image
-                      src="/logo.png"
+                      src="/logo-emblem.png"
                       alt="Harrison Ferrell, founder of H.F. Tech Consulting"
                       fill
+                      sizes="128px"
                       className="object-contain"
                     />
                   </div>
@@ -182,10 +183,8 @@ export default function AboutContent() {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 gap-8 mb-32"
         >
-          <div className="gradient-border p-8">
-            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
-              <Compass className="w-6 h-6 text-accent" />
-            </div>
+          <div className="panel p-8">
+            <Compass className="w-6 h-6 text-accent mb-6" strokeWidth={1.5} />
             <h2 className="text-2xl font-bold text-foreground mb-4">Our Approach</h2>
             <p className="text-muted-foreground leading-relaxed">
               Every engagement starts with understanding how your business actually operates today —
@@ -196,10 +195,8 @@ export default function AboutContent() {
             </p>
           </div>
 
-          <div className="gradient-border p-8">
-            <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
-              <MapPin className="w-6 h-6 text-accent" />
-            </div>
+          <div className="panel p-8">
+            <MapPin className="w-6 h-6 text-accent mb-6" strokeWidth={1.5} />
             <h2 className="text-2xl font-bold text-foreground mb-4">Service Area</h2>
             <p className="text-muted-foreground leading-relaxed">
               H.F. Tech Consulting is based in Houston, Texas, and works with businesses throughout
@@ -218,14 +215,12 @@ export default function AboutContent() {
           className="mb-32"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-              <HeartHandshake className="w-5 h-5 text-accent" />
-            </div>
+            <HeartHandshake className="w-5 h-5 text-accent" strokeWidth={1.5} />
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
               Why Clients Choose H.F. Tech Consulting
             </h2>
           </div>
-          <ul className="grid sm:grid-cols-2 gap-4">
+          <ul className="grid sm:grid-cols-2 border-t border-border">
             {[
               "Direct access to the person doing the work — not a rotating account team",
               "Solutions built around your actual process, not a one-size-fits-all package",
@@ -234,10 +229,8 @@ export default function AboutContent() {
               "One partner for automation, software, cloud, and IT support instead of several vendors",
               "Clear, honest recommendations — including telling you when you don't need something",
             ].map((item) => (
-              <li key={item} className="flex items-start gap-3 p-4 bg-muted/50 rounded-xl">
-                <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Target className="w-3.5 h-3.5 text-accent" />
-                </div>
+              <li key={item} className="flex items-start gap-3 py-4 sm:odd:pr-6 sm:even:pl-6 border-b border-border">
+                <Target className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.75} />
                 <span className="text-foreground text-sm leading-relaxed">{item}</span>
               </li>
             ))}
@@ -251,7 +244,7 @@ export default function AboutContent() {
           viewport={{ once: true }}
         >
           <div className="text-center mb-16">
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+            <h2 className="eyebrow mb-4">
               Our Values
             </h2>
             <p className="text-4xl font-bold text-foreground text-balance">
@@ -267,11 +260,9 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="gradient-border p-6 text-center"
+                className="panel p-6 text-center"
               >
-                <div className="w-12 h-12 mx-auto rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                  <value.icon className="w-6 h-6 text-accent" />
-                </div>
+                <value.icon className="w-6 h-6 text-accent mx-auto mb-4" strokeWidth={1.5} />
                 <h3 className="text-lg font-semibold text-foreground mb-2">
                   {value.title}
                 </h3>
@@ -291,7 +282,7 @@ export default function AboutContent() {
           className="mt-32 text-center"
         >
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+            <h2 className="eyebrow mb-4">
               Our Mission
             </h2>
             <p className="text-3xl sm:text-4xl font-bold text-foreground leading-relaxed text-balance">
@@ -313,7 +304,7 @@ export default function AboutContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
           >
             {"Let's Talk"}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

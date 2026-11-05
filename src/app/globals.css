@@ -10,6 +10,12 @@
   --accent: #0088ff;
   --accent-secondary: #b8c5d6;
   --accent-foreground: #ffffff;
+  /* Darker than --accent specifically for solid fills under white text —
+     #0088ff + white only hits 3.52:1 contrast (fails WCAG AA's 4.5:1 for
+     normal-weight text); this shade clears it at ~5.6:1. Text/icon/border
+     uses of --accent against the near-black page background are unaffected
+     and already pass comfortably, so only button fills use this token. */
+  --accent-cta: #0066cc;
   --border: #1e2a38;
   --ring: #0088ff;
   --radius: 0.75rem;
@@ -25,10 +31,11 @@
   --color-accent: var(--accent);
   --color-accent-secondary: var(--accent-secondary);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-cta: var(--accent-cta);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 }
 
 * {
@@ -49,6 +56,36 @@ body {
 ::selection {
   background: var(--accent);
   color: var(--accent-foreground);
+}
+
+/* Consistent, visible keyboard-focus ring across every interactive element —
+   replaces inconsistent browser defaults, never removed (:focus-visible only
+   shows for keyboard/AT users, not mouse clicks). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip-to-content link: visually hidden until focused, so keyboard and
+   screen-reader users can bypass the header nav. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+  outline-offset: 4px;
 }
 
 /* Gradient text utility - Blue to Silver */
@@ -89,6 +126,83 @@ body {
   box-shadow: 0 0 40px rgba(0, 136, 255, 0.15);
 }
 
+/* Component-layer utilities: placed in Tailwind's "components" layer so
+   responsive/state Tailwind utilities (e.g. md:hidden) still win over them,
+   per Tailwind v4's cascade-layer ordering (components < utilities). */
+@layer components {
+  /* Eyebrow label - mono, tracked-out section kicker */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* Panel - restrained card surface, used instead of gradient-border for dense grids */
+  .panel {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+
+  .panel:hover {
+    /* No transform here: framer-motion sets an inline transform (its
+       entrance animation's resting value) on most .panel elements, and
+       inline styles always beat stylesheet rules — fighting that with
+       !important risks jank on the cards that use whileHover for their own
+       lift. box-shadow/border/background aren't touched inline, so they
+       reliably apply everywhere. */
+    border-color: rgba(0, 136, 255, 0.4);
+    background: #0c131a;
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Index mark - monospace step/order numeral used in place of generic icon badges */
+  .index-mark {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    opacity: 0.55;
+  }
+
+  /* Stepper - connected horizontal process timeline */
+  .stepper-node {
+    position: relative;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 136, 255, 0.4);
+    background: var(--card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .stepper-line {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, rgba(0, 136, 255, 0.5), rgba(184, 197, 214, 0.15));
+  }
+}
+
 /* Blue glow */
 .blue-glow {
   box-shadow: 0 0 60px rgba(0, 136, 255, 0.25);
@@ -102,12 +216,10 @@ body {
   background-size: 60px 60px;
 }
 
-/* Circuit pattern for tech feel */
+/* Circuit-trace pattern, drawn from the mark's own PCB-trace motif */
 .circuit-pattern {
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(0, 136, 255, 0.05) 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, rgba(184, 197, 214, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%230088ff' stroke-width='1'%3E%3Cpath d='M14 28 H54 V64' opacity='0.14'/%3E%3Cpath d='M166 120 H126 V92 L108 74' opacity='0.1'/%3E%3Cpath d='M30 146 V166 H66' opacity='0.08'/%3E%3Cpath d='M150 20 V40 H120' stroke='%23b8c5d6' opacity='0.08'/%3E%3C/g%3E%3Cg fill='%230088ff'%3E%3Ccircle cx='54' cy='64' r='2.5' opacity='0.16'/%3E%3Ccircle cx='108' cy='74' r='2.5' opacity='0.12'/%3E%3Ccircle cx='66' cy='166' r='2' opacity='0.1'/%3E%3C/g%3E%3Ccircle cx='120' cy='40' r='2' fill='%23b8c5d6' opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
 
 /* Noise texture overlay */

@@ -11,7 +11,6 @@ const footerLinks = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
-    { label: "Healthcare", href: "/industries/healthcare" },
     { label: "Blog", href: "/blog" },
     { label: "FAQ", href: "/faq" },
     { label: "Contact", href: "/contact" },
@@ -47,7 +46,7 @@ export default function Footer() {
                 >
                                 <Link
                 href="/contact"
-                className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent to-blue-600 text-white font-semibold rounded-full"
+                className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
               >
                 Contact Us
               </Link>
@@ -63,11 +62,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="relative w-12 h-12">
+              <div className="relative w-10 h-10">
                 <Image
-                  src="/logo.png"
+                  src="/logo-emblem.png"
                   alt="H.F. Tech Consulting logo"
                   fill
+                  sizes="40px"
                   className="object-contain"
                 />
               </div>

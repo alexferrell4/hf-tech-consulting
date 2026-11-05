@@ -13,15 +13,21 @@ import {
   ArrowUpRight,
   Globe,
   Headphones,
+  Clock,
+  MapPin,
+  Layers,
+  User,
 } from "lucide-react";
 import ClientsCarousel from "@/components/ClientsCarousel";
+import StatCounter from "@/components/StatCounter";
 
 const Logo3D = dynamic(() => import("@/components/Logo3D"), { ssr: false });
 
-const highlights = [
-  { label: "Houston-Based", description: "Local, direct support" },
-  { label: "Custom-Built", description: "Solutions fit to your process" },
-  { label: "One Point of Contact", description: "From strategy to support" },
+const stats = [
+  { icon: Clock, value: 24, suffix: "-Hour", label: "Typical response time" },
+  { icon: MapPin, value: 100, suffix: "%", label: "Houston-based & local" },
+  { icon: Layers, value: 8, suffix: "", label: "Specialized service areas" },
+  { icon: User, value: 1, suffix: "", label: "Point of contact, start to finish" },
 ];
 
 const services = [
@@ -76,7 +82,7 @@ export default function HomeContent() {
           <div className="absolute inset-0 circuit-pattern" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 py-20 text-center">
+        <div className="relative w-full min-w-0 max-w-7xl mx-auto px-6 py-20 text-center">
           {/* Logo Animation */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -129,7 +135,7 @@ export default function HomeContent() {
           >
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
               Schedule Consultation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -137,29 +143,38 @@ export default function HomeContent() {
 
             <Link
               href="/services"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-full hover:bg-muted transition-all duration-200 group"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-full hover:bg-muted active:scale-[0.97] transition-all duration-200 group"
             >
               View Services
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
           </motion.div>
 
-          {/* Highlights */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-8 sm:gap-16 mt-20"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-20 max-w-3xl mx-auto"
           >
-            {highlights.map((item, i) => (
-              <div key={i} className="text-center">
-                <div className="text-lg sm:text-xl font-bold text-foreground">
-                  {item.label}
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                whileHover={{ y: -2 }}
+                className="panel px-4 py-6 text-center"
+              >
+                <stat.icon className="w-5 h-5 text-accent mx-auto mb-3" strokeWidth={1.5} />
+                <div className="text-2xl sm:text-3xl font-bold text-foreground font-mono tabular-nums">
+                  <StatCounter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  {item.description}
+                <div className="text-xs text-muted-foreground mt-2 leading-snug">
+                  {stat.label}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
 
@@ -184,7 +199,7 @@ export default function HomeContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+            <h2 className="eyebrow mb-4">
               What We Do
             </h2>
             <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
@@ -202,24 +217,21 @@ export default function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="group relative gradient-border p-8 cursor-pointer"
+                className="panel group relative p-8 cursor-pointer"
               >
-                <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[var(--radius)]" />
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
-                    <service.icon className="w-6 h-6 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {service.description}
-                  </p>
-
-
+                <div className="flex items-start justify-between mb-6">
+                  <service.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
+                  <span className="index-mark text-sm">{String(i + 1).padStart(2, "0")}</span>
                 </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">
+                  {service.description}
+                </p>
+                <div className="mt-6 h-px w-0 bg-accent transition-all duration-300 group-hover:w-12" />
               </motion.div>
             ))}
           </div>
@@ -241,7 +253,7 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* Healthcare Niche Section */}
+      {/* Who We Work With Section */}
       <section className="py-32 relative">
         <div className="absolute inset-0 bg-muted/30" />
         <div className="absolute inset-0 circuit-pattern opacity-50" />
@@ -252,32 +264,31 @@ export default function HomeContent() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
-                Healthcare Expertise
+              <h2 className="eyebrow mb-4">
+                Who We Work With
               </h2>
               <p className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
-                Specialized Solutions for Healthcare Providers
+                Built Around How Your Business Actually Operates
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                H.F. Tech Consulting specializes in helping healthcare providers, assisted living facilities,
-                counseling practices, and home care agencies improve operations through workflow automation,
-                digital forms, document management systems, compliance-focused technology solutions, and
-                business process optimization.
+                H.F. Tech Consulting works with small and midsize businesses across a range of
+                industries — including compliance-sensitive organizations like healthcare providers,
+                home care agencies, counseling practices, and assisted living facilities. Whatever
+                your industry, we build workflow automation, custom software, and IT solutions
+                around how your business actually operates, not a generic template.
               </p>
 
-              <ul className="space-y-4">
+              <ul className="space-y-0 border-t border-border">
                 {benefits.map((benefit, i) => (
                   <motion.li
                     key={benefit}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3"
+                    transition={{ delay: i * 0.08 }}
+                    className="flex items-center gap-4 py-3.5 border-b border-border"
                   >
-                    <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle2 className="w-4 h-4 text-accent" />
-                    </div>
+                    <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" strokeWidth={1.75} />
                     <span className="text-foreground">{benefit}</span>
                   </motion.li>
                 ))}
@@ -300,26 +311,23 @@ export default function HomeContent() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="gradient-border p-1">
-                <div className="bg-card rounded-[calc(var(--radius)-4px)] p-8">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">Less time spent on manual intake and documentation</span>
+              <div className="panel p-8">
+                <span className="index-mark text-xs block mb-6">OUTCOMES</span>
+                <div className="space-y-0">
+                  {[
+                    "Less time spent on manual intake and documentation",
+                    "Fewer missed follow-ups and scheduling gaps",
+                    "A clearer, more consistent audit trail",
+                    "Secure, organized digital records",
+                  ].map((outcome, i, arr) => (
+                    <div
+                      key={outcome}
+                      className={`flex items-center gap-4 py-4 ${i < arr.length - 1 ? "border-b border-border" : ""}`}
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" strokeWidth={1.75} />
+                      <span className="text-foreground text-sm">{outcome}</span>
                     </div>
-                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">Fewer missed follow-ups and scheduling gaps</span>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">A clearer, more consistent audit trail</span>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                      <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">Secure, organized digital records</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-2xl" />
@@ -338,13 +346,23 @@ export default function HomeContent() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+            <h2 className="eyebrow mb-4">
               Our Process
             </h2>
             <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
               Simple steps to transform your business
             </p>
           </motion.div>
+
+          {/* Connected stepper line (desktop) */}
+          <div className="hidden md:flex items-center mb-10">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="flex items-center flex-1 last:flex-none">
+                <div className="stepper-node">{String(i + 1).padStart(2, "0")}</div>
+                {i < 2 && <div className="stepper-line" />}
+              </div>
+            ))}
+          </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -360,12 +378,9 @@ export default function HomeContent() {
                 transition={{ delay: i * 0.1 }}
                 className="relative"
               >
-                <div className="text-7xl font-bold text-accent/20 mb-4">{item.step}</div>
+                <div className="stepper-node mb-4 md:hidden">{item.step}</div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-8 right-0 translate-x-1/2 w-16 h-px bg-border" />
-                )}
               </motion.div>
             ))}
           </div>

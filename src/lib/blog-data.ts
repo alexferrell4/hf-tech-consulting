@@ -7,6 +7,9 @@ export type BlogSection = {
 export type BlogPost = {
   slug: string;
   title: string;
+  /** Shorter title for the <title> tag when `title` itself runs long (keeps
+   * the ~60-char Google SERP budget without changing the on-page headline). */
+  metaTitle?: string;
   description: string;
   excerpt: string;
   category: string;
@@ -24,6 +27,7 @@ export const posts: BlogPost[] = [
   {
     slug: "how-workflow-automation-saves-time",
     title: "How Workflow Automation Saves Small Business Owners Time Every Week",
+    metaTitle: "How Workflow Automation Saves Business Owners Time",
     description:
       "A practical look at where small businesses lose time to manual, repetitive tasks — and how workflow automation gets those hours back.",
     excerpt:
@@ -76,6 +80,7 @@ export const posts: BlogPost[] = [
   {
     slug: "custom-software-vs-off-the-shelf",
     title: "Custom Software vs. Off-the-Shelf: How to Choose",
+    metaTitle: "Custom Software vs. Off-the-Shelf",
     description:
       "A framework for deciding when an off-the-shelf tool is the right call for your business, and when custom software actually makes more sense.",
     excerpt:
@@ -166,6 +171,7 @@ export const posts: BlogPost[] = [
   {
     slug: "signs-your-business-needs-automation",
     title: "5 Signs Your Business Is Ready for Workflow Automation",
+    metaTitle: "5 Signs You're Ready for Workflow Automation",
     description:
       "Five practical signs that manual processes are starting to hold your business back, and it's time to consider automating them.",
     excerpt:
@@ -219,6 +225,7 @@ export const posts: BlogPost[] = [
   {
     slug: "healthcare-automation-without-sacrificing-compliance",
     title: "How Healthcare Providers Can Automate Administrative Work Without Sacrificing Compliance",
+    metaTitle: "Healthcare Automation Without Sacrificing Compliance",
     description:
       "How healthcare providers, home care agencies, and counseling practices can automate intake and documentation while keeping compliance and privacy front of mind.",
     excerpt:
@@ -264,6 +271,7 @@ export const posts: BlogPost[] = [
   {
     slug: "it-support-in-house-outsourced-or-hybrid",
     title: "IT Support: In-House, Outsourced, or Hybrid? A Small Business Guide",
+    metaTitle: "IT Support: In-House, Outsourced, or Hybrid?",
     description:
       "A practical comparison of in-house, outsourced, and hybrid IT support models to help small businesses figure out what fits their size and budget.",
     excerpt:
@@ -313,8 +321,9 @@ export const posts: BlogPost[] = [
   {
     slug: "compudopt-computer-giveaway-75-computers",
     title: "Nixon Home Care x Compudopt x H.F. Tech Consulting: 75 Computers Given Away",
+    metaTitle: "75 Computers Given Away: Compudopt Giveaway",
     description:
-      "Nixon Home Care, Compudopt, and H.F. Tech Consulting teamed up today to give away 75 computers to individuals and families in the Houston community, helping close the digital divide one household at a time.",
+      "Nixon Home Care, Compudopt, and H.F. Tech Consulting teamed up to give away 75 computers to Houston-area families, helping close the digital divide.",
     excerpt:
       "Today, Nixon Home Care, Compudopt, and H.F. Tech Consulting partnered to put 75 computers into the hands of Houston-area families — recapping the day in photos.",
     category: "Community",

@@ -22,8 +22,12 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
 
+  // metaTitle keeps the <title> tag within Google's ~60-char display budget
+  // when the full title runs long; the page's own H1 always uses post.title.
+  const metaTitle = post.metaTitle ?? post.title;
+
   return {
-    title: post.title,
+    title: metaTitle,
     description: post.description,
     alternates: {
       canonical: `/blog/${post.slug}`,
@@ -31,7 +35,7 @@ export async function generateMetadata({
     openGraph: {
       ...buildOpenGraph({
         path: `/blog/${post.slug}`,
-        title: post.title,
+        title: metaTitle,
         description: post.description,
       }),
       ...(post.image && {
@@ -170,7 +174,7 @@ export default async function BlogPostPage({
 
           {post.gallery && post.gallery.length > 0 && (
             <section className="mt-16 pt-8 border-t border-border">
-              <h2 className="text-sm uppercase tracking-widest text-accent mb-6">
+              <h2 className="eyebrow mb-6">
                 Photos from the Day
               </h2>
               <BlogGallery images={post.gallery} alt={post.title} />
@@ -179,7 +183,7 @@ export default async function BlogPostPage({
 
           {relatedServices.length > 0 && (
             <section className="mt-16 pt-8 border-t border-border">
-              <h2 className="text-sm uppercase tracking-widest text-accent mb-4">
+              <h2 className="eyebrow mb-4">
                 Related Services
               </h2>
               <div className="flex flex-wrap gap-3">
@@ -205,7 +209,7 @@ export default async function BlogPostPage({
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-all duration-200 group"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
               Schedule Consultation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

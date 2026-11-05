@@ -34,7 +34,7 @@ export const services: Service[] = [
     description:
       "Automating repetitive tasks, notifications, document management, and business processes using cloud-based solutions like Zapier, Make, Power Automate, and custom integrations.",
     metaDescription:
-      "Workflow automation services for Houston businesses: automate repetitive tasks, notifications, and document processes with Zapier, Make, Power Automate, and custom integrations.",
+      "Workflow automation for Houston businesses — automate repetitive tasks, notifications, and document processes with Zapier, Make, and Power Automate.",
     features: [
       "Process mapping and optimization",
       "Custom automation workflows",
@@ -90,7 +90,7 @@ export const services: Service[] = [
     description:
       "Designing and developing web applications, dashboards, internal business tools, and mobile solutions tailored to organizational needs.",
     metaDescription:
-      "Custom software development for small and midsize businesses in Houston, TX — web applications, internal tools, dashboards, and integrations built around your actual workflow.",
+      "Custom software development for Houston-area businesses — web applications, internal tools, dashboards, and integrations built around your workflow.",
     features: [
       "Web applications",
       "Internal business tools",
@@ -146,7 +146,7 @@ export const services: Service[] = [
     description:
       "Website maintenance, SSL certificate management, hosting support, domain management, security updates, and troubleshooting.",
     metaDescription:
-      "Website management and support services in Houston, TX: maintenance, hosting, SSL and domain management, security updates, and troubleshooting for small business websites.",
+      "Website management for Houston, TX businesses — maintenance, hosting, SSL and domain management, security updates, and troubleshooting.",
     features: [
       "Website maintenance",
       "SSL & security management",
@@ -202,7 +202,7 @@ export const services: Service[] = [
     description:
       "Private cloud infrastructure, setup, security configuration, and cost optimization — with migration to platforms like Microsoft 365 or Google Workspace when that's the better fit.",
     metaDescription:
-      "Private cloud infrastructure, setup, security configuration, and cost optimization for Houston-area businesses, with migration to Microsoft 365, Google Workspace, and similar platforms when needed.",
+      "Private cloud infrastructure, security, and cost optimization for Houston-area businesses, plus migration to Microsoft 365 or Google Workspace.",
     features: [
       "Private cloud infrastructure",
       "Infrastructure setup",
@@ -264,7 +264,7 @@ export const services: Service[] = [
     description:
       "Developing dashboards, reports, and visualization tools that transform business data into actionable insights.",
     metaDescription:
-      "Data analytics and reporting services for small businesses in Houston, TX — custom dashboards, automated reports, and clear visualizations built from your existing data.",
+      "Data analytics and reporting for Houston-area businesses — custom dashboards, automated reports, and clear visualizations built from your data.",
     features: [
       "Custom dashboards",
       "Automated reports",
@@ -320,7 +320,7 @@ export const services: Service[] = [
     description:
       "Helping businesses grow their online presence through social media management, content creation, SEO, paid advertising, branding, and data-driven marketing strategies.",
     metaDescription:
-      "Digital marketing services for small businesses in Houston, TX — SEO, social media management, content creation, and paid advertising built around measurable results.",
+      "Digital marketing for Houston-area businesses — SEO, social media management, content creation, and paid advertising built around measurable results.",
     features: [
       "Social media management",
       "Content creation",
@@ -380,7 +380,7 @@ export const services: Service[] = [
     description:
       "Creating electronic intake forms, document workflows, automated notifications, and secure record management systems.",
     metaDescription:
-      "Digital forms and document management for healthcare providers and small businesses in Houston, TX — electronic intake, e-signatures, and secure, compliance-ready records.",
+      "Digital forms and document management for Houston-area businesses — electronic intake, e-signatures, and secure, compliance-ready records.",
     features: [
       "Digital form creation",
       "E-signature integration",
@@ -436,7 +436,7 @@ export const services: Service[] = [
     description:
       "Providing troubleshooting, system administration, network support, and technology recommendations.",
     metaDescription:
-      "IT support and infrastructure services for small businesses in Houston, TX — troubleshooting, system administration, network support, and technology recommendations.",
+      "IT support and infrastructure services for Houston-area businesses — troubleshooting, system administration, network support, and recommendations.",
     features: [
       "Technology assessment",
       "System administration",

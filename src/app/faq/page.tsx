@@ -6,7 +6,7 @@ import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, SITE_NAME } from "@/lib/s
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Answers to common questions about workflow automation, custom software, pricing, and IT support from H.F. Tech Consulting, serving Houston-area businesses and healthcare providers.",
+    "Answers to common questions about workflow automation, custom software, pricing, and IT support from H.F. Tech Consulting in Houston, TX.",
   alternates: {
     canonical: "/faq",
   },

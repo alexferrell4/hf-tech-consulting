@@ -43,7 +43,7 @@ export default function ContactContent() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mb-16"
         >
-          <h1 className="text-sm uppercase tracking-widest text-accent mb-4">
+          <h1 className="eyebrow mb-4">
             Contact H.F. Tech Consulting
           </h1>
           <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
@@ -73,9 +73,9 @@ export default function ContactContent() {
               </p>
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-xl">
-                <Mail className="w-5 h-5 text-accent" />
+            <div className="panel divide-y divide-border">
+              <div className="flex items-center gap-4 p-4">
+                <Mail className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
                   <p className="text-foreground font-medium">
@@ -84,8 +84,8 @@ export default function ContactContent() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-xl">
-                <Phone className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-4 p-4">
+                <Phone className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
                   <p className="text-foreground font-medium">
@@ -94,8 +94,8 @@ export default function ContactContent() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-xl">
-                <MapPin className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-4 p-4">
+                <MapPin className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
                   <p className="text-foreground font-medium">
@@ -106,7 +106,7 @@ export default function ContactContent() {
             </div>
 
             {/* Response Time */}
-            <div className="p-6 gradient-border">
+            <div className="p-6 panel">
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                 <span className="text-sm font-medium text-foreground">

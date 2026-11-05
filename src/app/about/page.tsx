@@ -5,7 +5,7 @@ import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, SITE_NAME } from "@/lib/s
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Meet Harrison Ferrell, founder of H.F. Tech Consulting. Learn about our mission, values, and expertise helping Houston-area businesses and healthcare providers adopt smarter technology.",
+    "Meet Harrison Ferrell, founder of H.F. Tech Consulting — helping Houston-area businesses adopt smarter technology through automation and custom software.",
   alternates: {
     canonical: "/about",
   },

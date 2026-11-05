@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 const title = "Privacy Policy";
 const description =
-  "How H.F. Tech Consulting collects, uses, and protects information from visitors to hftechconsulting.com, including data collected through our contact form, analytics, and advertising.";
+  "How H.F. Tech Consulting collects, uses, and protects information from visitors to hftechconsulting.com.";
 
 export const metadata: Metadata = {
   title,
@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
         <div className="relative max-w-3xl mx-auto px-6">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Privacy Policy", href: "/privacy" }]} />
 
-          <h1 className="text-sm uppercase tracking-widest text-accent mb-4">Legal</h1>
+          <h1 className="eyebrow mb-4">Legal</h1>
           <p className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
             Privacy Policy
           </p>

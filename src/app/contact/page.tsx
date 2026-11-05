@@ -5,7 +5,7 @@ import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, BUSINESS_EMAIL, BUSINESS_
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Schedule a consultation with H.F. Tech Consulting in Houston, TX. Reach out by phone, email, or our contact form to discuss workflow automation, custom software, or IT support.",
+    "Schedule a consultation with H.F. Tech Consulting in Houston, TX — by phone, email, or our contact form.",
   alternates: {
     canonical: "/contact",
   },
