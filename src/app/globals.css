@@ -194,6 +194,13 @@ body {
     font-size: 0.875rem;
     color: var(--accent);
     flex-shrink: 0;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stepper-node:hover {
+    transform: scale(1.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(0, 136, 255, 0.12);
   }
 
   .stepper-line {
@@ -273,4 +280,59 @@ body {
   .marquee-track {
     animation: none;
   }
+}
+
+/* Savings calculator range inputs. The --fill custom property (set inline
+   per-slider from the current value) paints the filled portion left of the
+   thumb; track styling needs the -webkit-/-moz- pseudo-elements since plain
+   CSS can't reach a native range input's internals. */
+.savings-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--accent) var(--fill, 0%),
+    var(--border) var(--fill, 0%)
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.savings-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-foreground);
+  border: 3px solid var(--accent);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.savings-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.savings-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-foreground);
+  border: 3px solid var(--accent);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.savings-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+
+.savings-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
 }

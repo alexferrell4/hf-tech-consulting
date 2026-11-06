@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   ArrowRight,
   Zap,
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import StatCounter from "@/components/StatCounter";
+import SavingsCalculator from "@/components/SavingsCalculator";
 
 const Logo3D = dynamic(() => import("@/components/Logo3D"), { ssr: false });
 
@@ -70,15 +72,56 @@ const benefits = [
   "Dedicated support and maintenance",
 ];
 
+// Cursor-reactive parallax for the hero's glow blobs. Disabled for users who
+// prefer reduced motion, since this is a decorative, non-essential effect.
+function useHeroParallax() {
+  const ref = useRef<HTMLElement>(null);
+  const [enabled, setEnabled] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 20 });
+
+  useEffect(() => {
+    // matchMedia needs `window`, so this can only run after mount — standard
+    // client-only capability check, not a derivable-from-props value.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEnabled(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const el = ref.current;
+    if (!el) return;
+    const handleMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      mouseX.set((e.clientX - rect.left - rect.width / 2) * 0.06);
+      mouseY.set((e.clientY - rect.top - rect.height / 2) * 0.06);
+    };
+    el.addEventListener("mousemove", handleMove);
+    return () => el.removeEventListener("mousemove", handleMove);
+  }, [enabled, mouseX, mouseY]);
+
+  return { ref, blobOneStyle: { x: springX, y: springY }, blobTwoX: useTransform(springX, (v) => -v), blobTwoY: useTransform(springY, (v) => -v) };
+}
+
 export default function HomeContent() {
+  const { ref: heroRef, blobOneStyle, blobTwoX, blobTwoY } = useHeroParallax();
+
   return (
     <main className="relative">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         {/* Background Effects */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/10 rounded-full blur-[128px]" />
+          <motion.div
+            style={blobOneStyle}
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px]"
+          />
+          <motion.div
+            style={{ x: blobTwoX, y: blobTwoY }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-secondary/10 rounded-full blur-[128px]"
+          />
           <div className="absolute inset-0 circuit-pattern" />
         </div>
 
@@ -222,7 +265,10 @@ export default function HomeContent() {
                 className="panel group relative p-8 cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-6">
-                  <service.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
+                  <service.icon
+                    className="w-6 h-6 text-accent transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110"
+                    strokeWidth={1.5}
+                  />
                   <span className="index-mark text-sm">{String(i + 1).padStart(2, "0")}</span>
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-3">
@@ -252,6 +298,8 @@ export default function HomeContent() {
           </motion.div>
         </div>
       </section>
+
+      <SavingsCalculator />
 
       {/* Who We Work With Section */}
       <section className="py-32 relative">
@@ -359,7 +407,15 @@ export default function HomeContent() {
             {[0, 1, 2].map((i) => (
               <div key={i} className="flex items-center flex-1 last:flex-none">
                 <div className="stepper-node">{String(i + 1).padStart(2, "0")}</div>
-                {i < 2 && <div className="stepper-line" />}
+                {i < 2 && (
+                  <motion.div
+                    className="stepper-line origin-left"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 + i * 0.3, ease: "easeOut" }}
+                  />
+                )}
               </div>
             ))}
           </div>
