@@ -22,6 +22,7 @@ import {
 import ClientsCarousel from "@/components/ClientsCarousel";
 import StatCounter from "@/components/StatCounter";
 import SavingsCalculator from "@/components/SavingsCalculator";
+import ServiceQuiz from "@/components/ServiceQuiz";
 
 const Logo3D = dynamic(() => import("@/components/Logo3D"), { ssr: false });
 
@@ -298,6 +299,8 @@ export default function HomeContent() {
           </motion.div>
         </div>
       </section>
+
+      <ServiceQuiz />
 
       <SavingsCalculator />
 

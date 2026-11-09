@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -48,6 +49,35 @@ export async function generateMetadata({
   };
 }
 
+// Renders a paragraph/list-item, turning the first occurrence of each of the
+// post's inlineLinks phrases into a link to the matching service page.
+// `remaining` is mutated across calls so each phrase is only linked once,
+// at whichever point in the post it's first encountered.
+function linkify(text: string, remaining: { text: string; slug: string }[]): ReactNode {
+  for (let i = 0; i < remaining.length; i++) {
+    const link = remaining[i];
+    const idx = text.indexOf(link.text);
+    if (idx !== -1) {
+      remaining.splice(i, 1);
+      const before = text.slice(0, idx);
+      const after = text.slice(idx + link.text.length);
+      return (
+        <>
+          {before}
+          <Link
+            href={`/services/${link.slug}`}
+            className="text-accent hover:text-accent/80 underline underline-offset-2 transition-colors"
+          >
+            {link.text}
+          </Link>
+          {linkify(after, remaining)}
+        </>
+      );
+    }
+  }
+  return text;
+}
+
 function formatDate(dateStr: string) {
   return new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", {
     year: "numeric",
@@ -66,6 +96,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const relatedServices = services.filter((s) => post.relatedServices.includes(s.slug));
+  const remainingInlineLinks = [...(post.inlineLinks ?? [])];
 
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Home", path: "/" },
@@ -140,7 +171,7 @@ export default async function BlogPostPage({
           <div className="space-y-4 mb-12">
             {post.intro.map((paragraph, i) => (
               <p key={i} className="text-xl text-muted-foreground leading-relaxed">
-                {paragraph}
+                {linkify(paragraph, remainingInlineLinks)}
               </p>
             ))}
           </div>
@@ -153,7 +184,7 @@ export default async function BlogPostPage({
                   <div className="space-y-4">
                     {section.paragraphs.map((paragraph, i) => (
                       <p key={i} className="text-muted-foreground leading-relaxed">
-                        {paragraph}
+                        {linkify(paragraph, remainingInlineLinks)}
                       </p>
                     ))}
                   </div>
@@ -163,7 +194,7 @@ export default async function BlogPostPage({
                     {section.list.map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-muted-foreground leading-relaxed">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2.5 flex-shrink-0" />
-                        <span>{item}</span>
+                        <span>{linkify(item, remainingInlineLinks)}</span>
                       </li>
                     ))}
                   </ul>

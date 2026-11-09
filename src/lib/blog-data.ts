@@ -19,6 +19,11 @@ export type BlogPost = {
   intro: string[];
   sections: BlogSection[];
   relatedServices: string[];
+  /** Exact-match phrases within `intro`/`sections` text to turn into contextual
+   * links to a service page (first occurrence only, in reading order) — for
+   * internal linking with natural anchor text, distinct from the generic
+   * "Related Services" links shown at the end of the post. */
+  inlineLinks?: { text: string; slug: string }[];
   image?: string;
   gallery?: string[];
 };
@@ -76,6 +81,10 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["workflow-automation", "digital-forms-document-management"],
+    inlineLinks: [
+      { text: "intake form", slug: "digital-forms-document-management" },
+      { text: "Workflow automation", slug: "workflow-automation" },
+    ],
   },
   {
     slug: "custom-software-vs-off-the-shelf",
@@ -122,6 +131,7 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["custom-software-development", "data-analytics-reporting"],
+    inlineLinks: [{ text: "Custom software", slug: "custom-software-development" }],
   },
   {
     slug: "small-business-guide-to-the-cloud",
@@ -167,6 +177,7 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["cloud-solutions", "it-support"],
+    inlineLinks: [{ text: "cloud tools", slug: "cloud-solutions" }],
   },
   {
     slug: "signs-your-business-needs-automation",
@@ -221,6 +232,10 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["workflow-automation", "data-analytics-reporting"],
+    inlineLinks: [
+      { text: "manual processes", slug: "workflow-automation" },
+      { text: "your reporting", slug: "data-analytics-reporting" },
+    ],
   },
   {
     slug: "healthcare-automation-without-sacrificing-compliance",
@@ -267,6 +282,9 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["digital-forms-document-management", "workflow-automation"],
+    inlineLinks: [
+      { text: "Digital intake and consent forms", slug: "digital-forms-document-management" },
+    ],
   },
   {
     slug: "it-support-in-house-outsourced-or-hybrid",
@@ -317,6 +335,7 @@ export const posts: BlogPost[] = [
       },
     ],
     relatedServices: ["it-support", "cloud-solutions"],
+    inlineLinks: [{ text: "outsourced or hybrid support", slug: "it-support" }],
   },
   {
     slug: "compudopt-computer-giveaway-75-computers",
