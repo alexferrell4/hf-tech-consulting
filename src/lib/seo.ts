@@ -3,6 +3,30 @@ export const SITE_NAME = "H.F. Tech Consulting";
 export const BUSINESS_PHONE = "+1-281-223-3570";
 export const BUSINESS_EMAIL = "alex@hftechconsulting.com";
 
+export const FOUNDER_ID = `${SITE_URL}/about/#founder`;
+
+const KNOWS_ABOUT = [
+  "Workflow automation",
+  "Custom software development",
+  "Cloud solutions",
+  "Data analytics and reporting",
+  "Website management",
+  "Digital forms and document management",
+  "IT support",
+  "Healthcare IT",
+];
+
+export const FOUNDER_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": FOUNDER_ID,
+  name: "Harrison Ferrell",
+  jobTitle: "Founder & Lead Consultant",
+  url: `${SITE_URL}/about`,
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+  knowsAbout: KNOWS_ABOUT,
+} as const;
+
 export const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -29,7 +53,17 @@ export const ORGANIZATION_JSON_LD = {
   ],
   founder: {
     "@type": "Person",
+    "@id": FOUNDER_ID,
     name: "Harrison Ferrell",
+  },
+  knowsAbout: KNOWS_ABOUT,
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: BUSINESS_PHONE,
+    email: BUSINESS_EMAIL,
+    areaServed: "US",
+    availableLanguage: "English",
   },
   sameAs: [],
 } as const;
@@ -85,6 +119,18 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
       position: index + 1,
       name: item.name,
       item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+export function faqJsonLd(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
     })),
   };
 }

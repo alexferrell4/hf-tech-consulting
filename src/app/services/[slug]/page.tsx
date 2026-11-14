@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { services, getServiceBySlug } from "@/lib/services-data";
+import { services, getServiceBySlug, getServiceFaqs } from "@/lib/services-data";
+import { contactHref } from "@/lib/contact-link";
+import Reveal from "@/components/Reveal";
+import BeforeAfter from "@/components/BeforeAfter";
+import FaqAccordion from "@/components/FaqAccordion";
 import { serviceIconMap } from "@/lib/service-icons";
-import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, buildOpenGraph, faqJsonLd, jsonLdHtml, SITE_NAME, SITE_URL } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
@@ -47,6 +52,7 @@ export default async function ServiceDetailPage({
 
   const Icon = serviceIconMap[service.icon];
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const serviceFaqs = getServiceFaqs(service);
 
   const breadcrumbs = breadcrumbJsonLd([
     { name: "Home", path: "/" },
@@ -66,6 +72,14 @@ export default async function ServiceDetailPage({
     ],
     serviceType: service.title,
     url: `${SITE_URL}/services/${service.slug}`,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${service.shortTitle} services`,
+      itemListElement: service.features.map((feature) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: feature },
+      })),
+    },
   };
 
   return (
@@ -77,6 +91,10 @@ export default async function ServiceDetailPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(faqJsonLd(serviceFaqs)) }}
       />
 
       <main className="relative pt-32 pb-20">
@@ -94,18 +112,20 @@ export default async function ServiceDetailPage({
             ]}
           />
 
-          <Icon className="w-7 h-7 text-accent mb-6" strokeWidth={1.5} />
+          <div className="rise-in inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-accent/30 bg-accent/10 mb-6">
+            <Icon className="w-7 h-7 text-accent" strokeWidth={1.5} />
+          </div>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
+          <h1 className="rise-in text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance" style={{ "--delay": "80ms" } as CSSProperties}>
             {service.title}
           </h1>
 
-          <p className="text-xl text-muted-foreground leading-relaxed mb-16">
+          <p className="rise-in text-xl text-muted-foreground leading-relaxed mb-16" style={{ "--delay": "160ms" } as CSSProperties}>
             {service.intro}
           </p>
 
           {/* The Problem */}
-          <section className="mb-16">
+          <Reveal as="section" className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">The Problem</h2>
             <div className="space-y-4">
               {service.problem.map((paragraph, i) => (
@@ -114,10 +134,10 @@ export default async function ServiceDetailPage({
                 </p>
               ))}
             </div>
-          </section>
+          </Reveal>
 
           {/* What's Included */}
-          <section className="mb-16">
+          <Reveal as="section" className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">What&apos;s Included</h2>
             <div className="grid sm:grid-cols-2 border-t border-border">
               {service.features.map((feature) => (
@@ -127,10 +147,10 @@ export default async function ServiceDetailPage({
                 </div>
               ))}
             </div>
-          </section>
+          </Reveal>
 
           {/* Who This Is For */}
-          <section className="mb-16">
+          <Reveal as="section" className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">Who This Is For</h2>
             <ul className="border-t border-border">
               {service.whoFor.map((item) => (
@@ -140,34 +160,38 @@ export default async function ServiceDetailPage({
                 </li>
               ))}
             </ul>
-          </section>
+          </Reveal>
 
-          {/* Our Process */}
+          {/* Our Process: vertical timeline */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Our Process</h2>
-            <div className="grid sm:grid-cols-2 gap-8">
+            <Reveal>
+              <h2 className="text-2xl font-bold text-foreground mb-8">Our Process</h2>
+            </Reveal>
+            <ol className="relative ml-5 border-l border-accent/30">
               {service.process.map((step, i) => (
-                <div key={step.title} className="relative pt-4 border-t border-border">
-                  <span className="index-mark text-xs">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="text-lg font-semibold text-foreground mt-2 mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm">{step.description}</p>
-                </div>
+                <Reveal as="li" key={step.title} delay={i * 0.08} className="relative pl-10 pb-10 last:pb-0">
+                  <span className="stepper-node absolute -left-[1.375rem] top-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-lg font-semibold text-foreground pt-2 mb-2">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                </Reveal>
               ))}
-            </div>
+            </ol>
           </section>
 
-          {/* Outcomes */}
-          <section className="mb-16 panel p-8">
-            <h2 className="text-2xl font-bold text-foreground mb-6">What You Can Expect</h2>
-            <ul className="border-t border-border">
-              {service.outcomes.map((outcome) => (
-                <li key={outcome} className="flex items-start gap-3 py-3.5 border-b border-border">
-                  <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.75} />
-                  <span className="text-foreground leading-relaxed">{outcome}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {/* Before / after */}
+          <Reveal as="section" className="mb-16">
+            <BeforeAfter before={service.before} after={service.outcomes} />
+          </Reveal>
+
+          {/* FAQ */}
+          <Reveal as="section" className="mb-16">
+            <h2 className="text-2xl font-bold text-foreground mb-6">
+              Common Questions About {service.shortTitle}
+            </h2>
+            <FaqAccordion faqs={serviceFaqs} />
+          </Reveal>
 
           {/* CTA */}
           <section className="mb-20 text-center">
@@ -178,11 +202,17 @@ export default async function ServiceDetailPage({
               Schedule a consultation and we&apos;ll walk through your current process and what a solution could look like.
             </p>
             <Link
-              href="/contact"
+              href={contactHref({ service: service.slug })}
               className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
               Schedule Consultation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href={`/quote?service=${service.slug}`}
+              className="inline-flex items-center gap-2 px-8 py-4 ml-0 sm:ml-4 mt-4 sm:mt-0 border border-border text-foreground font-medium rounded-full hover:bg-muted active:scale-[0.97] transition-all duration-200"
+            >
+              Get a Quote
             </Link>
           </section>
 

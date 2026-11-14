@@ -47,7 +47,6 @@ export default function Navbar() {
     { href: "/blog", label: "Blog" },
     { href: "/faq", label: "FAQ" },
     { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -146,13 +145,24 @@ export default function Navbar() {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
             <Link
               href="/contact"
+              aria-current={isActive("/contact") ? "page" : undefined}
+              className={`inline-flex items-center px-5 py-2.5 font-semibold rounded-full border active:scale-[0.97] transition-all duration-200 ${
+                isActive("/contact")
+                  ? "border-accent/60 text-foreground bg-accent/10"
+                  : "border-border text-foreground hover:border-accent/50 hover:bg-muted"
+              }`}
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/quote"
               className="relative inline-flex items-center gap-2 px-6 py-2.5 font-semibold rounded-full overflow-hidden group active:scale-[0.97] transition-transform duration-200"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-accent-cta to-blue-600 transition-transform duration-300 group-hover:scale-105" />
-              <span className="relative text-white">Contact Us</span>
+              <span className="relative text-white">Get a Quote</span>
             </Link>
           </div>
 
@@ -206,15 +216,21 @@ export default function Navbar() {
                   transition={{ delay: 0.4 }}
                   className="pt-4 space-y-3"
                 >
-                  <div className="flex items-center gap-3 px-4 text-muted-foreground">
+                  <a
+                    href="mailto:alex@hftechconsulting.com"
+                    className="flex items-center gap-3 px-4 py-1 text-muted-foreground hover:text-accent transition-colors"
+                  >
                     <Mail className="w-4 h-4" />
                     <span className="text-sm">alex@hftechconsulting.com</span>
-                  </div>
+                  </a>
 
-                  <div className="flex items-center gap-3 px-4 text-muted-foreground">
+                  <a
+                    href="tel:+12812233570"
+                    className="flex items-center gap-3 px-4 py-1 text-muted-foreground hover:text-accent transition-colors"
+                  >
                     <Phone className="w-4 h-4" />
                     <span className="text-sm">(281) 223-3570</span>
-                  </div>
+                  </a>
                 </motion.div>
 
                 {/* CTA */}
@@ -222,14 +238,21 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="pt-4"
+                  className="pt-4 space-y-3"
                 >
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
+                    className="inline-flex items-center justify-center w-full px-5 py-3 border border-border text-foreground font-semibold rounded-full"
                   >
                     Contact Us
+                  </Link>
+                  <Link
+                    href="/quote"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
+                  >
+                    Get a Quote
                   </Link>
                 </motion.div>
               </div>

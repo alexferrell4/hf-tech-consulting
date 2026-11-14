@@ -13,6 +13,11 @@ export type ProcessStep = { title: string; description: string };
 export type Service = {
   icon: ServiceIconKey;
   slug: string;
+  /** Lowercase name as it reads mid-sentence, e.g. in FAQ questions. */
+  plainName: string;
+  plainNamePlural?: boolean;
+  /** Short "without this service" pain points, drawn from `problem`. */
+  before: string[];
   title: string;
   shortTitle: string;
   description: string;
@@ -29,6 +34,13 @@ export const services: Service[] = [
   {
     icon: "Zap",
     slug: "workflow-automation",
+    plainName: "workflow automation",
+    before: [
+      "Data copied by hand from emails into spreadsheets",
+      "Forms forwarded manually to the right department",
+      "Someone checking a folder every morning to see what came in",
+      "Follow-ups missed when the person who handles them is out",
+    ],
     title: "Workflow Automation",
     shortTitle: "Workflow Automation",
     description:
@@ -85,6 +97,13 @@ export const services: Service[] = [
   {
     icon: "Code2",
     slug: "custom-software-development",
+    plainName: "custom software development",
+    before: [
+      "Paying for a dozen features you'll never use",
+      "The workflow that matters most still lives in a spreadsheet or on paper",
+      "A stack of tools that each solve part of the problem",
+      "None of those tools connect to each other",
+    ],
     title: "Custom Software & Application Development",
     shortTitle: "Custom Software Development",
     description:
@@ -141,20 +160,28 @@ export const services: Service[] = [
   {
     icon: "Globe",
     slug: "website-management",
-    title: "Website Management & Support",
-    shortTitle: "Website Management",
+    plainName: "website development and management",
+    before: [
+      "Software and plugin updates left undone",
+      "An expired SSL certificate showing visitors a security warning",
+      "A contact form that stopped submitting months ago",
+      "A domain that lapses because the renewal email got buried",
+    ],
+    title: "Website Development, Management & Support",
+    shortTitle: "Website Development & Management",
     description:
-      "Website maintenance, SSL certificate management, hosting support, domain management, security updates, and troubleshooting.",
+      "Designing and building business websites, plus ongoing maintenance, SSL certificate management, hosting support, domain management, security updates, and troubleshooting.",
     metaDescription:
-      "Website management for Houston, TX businesses — maintenance, hosting, SSL and domain management, security updates, and troubleshooting.",
+      "Website development and management for Houston, TX businesses — new sites, maintenance, hosting, SSL and domains, security updates, and support.",
     features: [
+      "Website design & development",
       "Website maintenance",
       "SSL & security management",
       "Hosting & domain support",
       "Performance optimization",
     ],
     intro:
-      "Website management is the ongoing maintenance, security, and technical support that keeps a business website running correctly after it's been built — not a one-time project, but a continuous responsibility.",
+      "Website development and management covers building a business website and the ongoing maintenance, security, and technical support that keeps it running correctly afterward — not a one-time project, but a continuous responsibility.",
     problem: [
       "A website is often treated as a project with a finish line: it launches, and then it's forgotten. In reality, websites need ongoing attention — software and plugin updates, SSL certificate renewals, domain renewals, security patches, and periodic checks to make sure forms, links, and pages are still working correctly. Left unmanaged, a site can slowly become slow, insecure, or simply broken, often without the owner noticing until a customer mentions it.",
       "Most small businesses don't have anyone dedicated to watching for this. The result is websites that quietly degrade — an expired SSL certificate that shows visitors a security warning, a contact form that stopped submitting months ago, or a domain that lapses because a renewal email got buried.",
@@ -197,6 +224,14 @@ export const services: Service[] = [
   {
     icon: "Cloud",
     slug: "cloud-solutions",
+    plainName: "cloud solutions",
+    plainNamePlural: true,
+    before: [
+      "Files that only exist on one computer",
+      "No reliable backup or recovery plan",
+      "A mix of personal accounts used for file sharing",
+      "No clear way for a remote or growing team to collaborate",
+    ],
     title: "Cloud Solutions",
     shortTitle: "Cloud Solutions",
     description:
@@ -259,6 +294,13 @@ export const services: Service[] = [
   {
     icon: "BarChart3",
     slug: "data-analytics-reporting",
+    plainName: "data analytics and reporting",
+    before: [
+      "Data scattered across spreadsheets, point-of-sale, scheduling, and accounting tools",
+      "Numbers pulled manually from three different places",
+      "Simple month-over-month questions that take real effort to answer",
+      "Decisions based on gut feeling instead of the numbers",
+    ],
     title: "Data Analytics & Reporting",
     shortTitle: "Data Analytics & Reporting",
     description:
@@ -315,6 +357,13 @@ export const services: Service[] = [
   {
     icon: "Megaphone",
     slug: "digital-marketing",
+    plainName: "digital marketing",
+    before: [
+      "A website and a social page with no strategy connecting them",
+      "Inconsistent posting",
+      "No clear message about who you serve",
+      "No way to tell whether any of it is bringing in business",
+    ],
     title: "Digital Marketing",
     shortTitle: "Digital Marketing",
     description:
@@ -375,6 +424,13 @@ export const services: Service[] = [
   {
     icon: "FileText",
     slug: "digital-forms-document-management",
+    plainName: "digital forms and document management",
+    before: [
+      "Paper forms that get lost",
+      "Handwriting that's hard to read",
+      "Records that are difficult to search",
+      "No reliable audit trail of who accessed what and when",
+    ],
     title: "Digital Forms & Document Management",
     shortTitle: "Digital Forms & Document Management",
     description:
@@ -431,6 +487,13 @@ export const services: Service[] = [
   {
     icon: "Headphones",
     slug: "it-support",
+    plainName: "IT support",
+    before: [
+      "A slow network nobody has time to diagnose",
+      "A computer that won't connect to the printer",
+      "Software set up inconsistently for each new employee",
+      "Hardware and software purchases made by guesswork",
+    ],
     title: "IT Infrastructure & Technical Support",
     shortTitle: "IT Support",
     description:
@@ -488,6 +551,33 @@ export const services: Service[] = [
 
 export function getServiceBySlug(slug: string): Service | undefined {
   return services.find((service) => service.slug === slug);
+}
+
+const lowerFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
+const upperFirst = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
+// Question-and-answer pairs built from each service's existing copy, so the
+// on-page FAQ and its FAQPage schema can never drift from the page content.
+export function getServiceFaqs(service: Service): { question: string; answer: string }[] {
+  const name = service.plainName;
+  const verb = service.plainNamePlural ? "are" : "is";
+  return [
+    { question: `What ${verb} ${name}?`, answer: service.intro },
+    {
+      question: `Who ${verb} ${name} a good fit for?`,
+      answer: `${upperFirst(name)} ${verb} typically a good fit for ${service.whoFor.map(lowerFirst).join("; ")}.`,
+    },
+    {
+      question: `How does H.F. Tech Consulting approach ${name}?`,
+      answer: `The process has ${service.process.length} steps. ${service.process
+        .map((step, i) => `${i + 1}. ${step.title}: ${step.description}`)
+        .join(" ")}`,
+    },
+    {
+      question: `What outcomes does ${name} aim for?`,
+      answer: `The goals of an engagement are ${service.outcomes.map(lowerFirst).join("; ")}.`,
+    },
+  ];
 }
 
 export const faqs: { question: string; answer: string }[] = [

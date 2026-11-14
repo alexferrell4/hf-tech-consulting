@@ -3,7 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import BlogCover from "@/components/BlogCover";
 import type { BlogPost } from "@/lib/blog-data";
 import { estimateReadingTime } from "@/lib/blog-data";
 
@@ -60,22 +62,33 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
         <p className="text-muted-foreground">No articles in this category yet.</p>
       ) : (
         <div className="grid md:grid-cols-2 gap-6">
+          <AnimatePresence mode="popLayout" initial={false}>
           {filtered.map((post) => (
-            <Link
+            <motion.div
               key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group panel overflow-hidden flex flex-col"
+              layout
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.25 }}
+              className="flex"
             >
-              {post.image && (
-                <div className="relative w-full h-48 bg-muted">
+            <Link
+              href={`/blog/${post.slug}`}
+              className="group panel overflow-hidden flex flex-col w-full"
+            >
+              {post.image ? (
+                <div className="relative w-full h-48 bg-muted overflow-hidden">
                   <Image
                     src={post.image}
                     alt={post.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
+              ) : (
+                <BlogCover category={post.category} className="w-full h-48" />
               )}
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
@@ -98,7 +111,9 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
                 </span>
               </div>
             </Link>
+            </motion.div>
           ))}
+          </AnimatePresence>
         </div>
       )}
     </div>

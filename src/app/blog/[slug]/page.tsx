@@ -6,7 +6,9 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { posts, getPostBySlug, estimateReadingTime } from "@/lib/blog-data";
 import { services } from "@/lib/services-data";
-import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, FOUNDER_ID, SITE_URL } from "@/lib/seo";
+import ReadingProgress from "@/components/ReadingProgress";
+import BlogCover from "@/components/BlogCover";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import BlogGallery from "@/components/BlogGallery";
 
@@ -111,7 +113,8 @@ export default async function BlogPostPage({
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
-    author: { "@type": "Person", name: post.author },
+    author: { "@type": "Person", "@id": FOUNDER_ID, name: post.author, url: `${SITE_URL}/about` },
+    articleSection: post.category,
     publisher: { "@id": `${SITE_URL}/#organization` },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/blog/${post.slug}` },
     image: `${SITE_URL}${post.image ?? "/logo.png"}`,
@@ -123,6 +126,7 @@ export default async function BlogPostPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(breadcrumbs) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(articleJsonLd) }} />
 
+      <ReadingProgress />
       <main className="relative pt-32 pb-20">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
@@ -146,7 +150,12 @@ export default async function BlogPostPage({
             <span>·</span>
             <span>{estimateReadingTime(post)} min read</span>
             <span>·</span>
-            <span>By {post.author}</span>
+            <span>
+              By{" "}
+              <Link href="/about" className="hover:text-accent transition-colors">
+                {post.author}
+              </Link>
+            </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-8 text-balance">
@@ -168,6 +177,10 @@ export default async function BlogPostPage({
             </div>
           )}
 
+          {!post.image && (
+            <BlogCover category={post.category} className="group h-48 rounded-[var(--radius)] border border-border mb-12" />
+          )}
+
           <div className="space-y-4 mb-12">
             {post.intro.map((paragraph, i) => (
               <p key={i} className="text-xl text-muted-foreground leading-relaxed">
@@ -175,6 +188,20 @@ export default async function BlogPostPage({
               </p>
             ))}
           </div>
+
+          {post.takeaways && post.takeaways.length > 0 && (
+            <section className="panel p-6 sm:p-8 mb-12">
+              <h2 className="eyebrow mb-4">Key Takeaways</h2>
+              <ul className="space-y-3">
+                {post.takeaways.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-foreground leading-relaxed">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2.5 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <div className="space-y-12">
             {post.sections.map((section) => (

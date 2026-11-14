@@ -3,6 +3,8 @@ import { getSortedPosts } from "@/lib/blog-data";
 import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, SITE_NAME, SITE_URL } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import BlogList from "@/components/BlogList";
+import PageHero from "@/components/PageHero";
+import { BlogVisual } from "@/components/HeroVisuals";
 
 const title = "Blog & Insights";
 const description =
@@ -55,17 +57,18 @@ export default function BlogIndexPage() {
           <div className="absolute inset-0 circuit-pattern opacity-30" />
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6">
+        <div className="relative max-w-6xl mx-auto px-6">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }]} />
 
-          <h1 className="eyebrow mb-4">Blog & Insights</h1>
-          <p className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
-            Practical guidance for small business technology
-          </p>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-16 max-w-3xl">
-            Straightforward articles on workflow automation, software, cloud solutions, and IT
-            support — written for business owners, not engineers.
-          </p>
+          <PageHero
+            eyebrow="Blog & Insights"
+            headline={[
+              { text: "Practical guidance for" },
+              { text: "small business technology", className: "gradient-text" },
+            ]}
+            description="Straightforward articles on workflow automation, software, cloud solutions, and IT support — written for business owners, not engineers."
+            visual={<BlogVisual />}
+          />
 
           <BlogList posts={posts} />
         </div>

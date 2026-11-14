@@ -5,6 +5,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Users, Target, Lightbulb, MapPin, Compass, HeartHandshake } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import PageHero from "@/components/PageHero";
+import { LocationVisual } from "@/components/HeroVisuals";
 
 const values = [
   {
@@ -52,24 +54,15 @@ export default function AboutContent() {
       <div className="relative max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "About", href: "/about" }]} />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-3xl mb-20"
-        >
-          <h1 className="eyebrow mb-4">
-            About H.F. Tech Consulting
-          </h1>
-          <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
-            <span className="text-accent-secondary">Smart Solutions.</span>{" "}
-            <span className="gradient-text">Real Results.</span>
-          </p>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            H.F. Tech Consulting helps businesses leverage technology to streamline
-            operations, reduce administrative burden, and support long-term growth.
-          </p>
-        </motion.div>
+        <PageHero
+          eyebrow="About H.F. Tech Consulting"
+          headline={[
+            { text: "Smart Solutions.", className: "text-accent-secondary" },
+            { text: "Real Results.", className: "gradient-text" },
+          ]}
+          description="H.F. Tech Consulting helps businesses leverage technology to streamline operations, reduce administrative burden, and support long-term growth."
+          visual={<LocationVisual />}
+        />
 
         {/* Our Story */}
         <motion.div

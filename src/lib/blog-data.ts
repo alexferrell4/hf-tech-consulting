@@ -16,6 +16,8 @@ export type BlogPost = {
   publishedAt: string;
   updatedAt?: string;
   author: string;
+  /** Short summary points shown at the top of the post. */
+  takeaways?: string[];
   intro: string[];
   sections: BlogSection[];
   relatedServices: string[];
@@ -31,6 +33,11 @@ export type BlogPost = {
 export const posts: BlogPost[] = [
   {
     slug: "how-workflow-automation-saves-time",
+    takeaways: [
+      "Time is lost in dozens of small repeated tasks, not one big one, so the cost only shows up when you add it up over a month.",
+      "Automation handles the steps that run the same way every time, such as data entry, notifications, and routing, and leaves judgment calls to people.",
+      "Start with the process that happens most often, and map every manual step before choosing a tool.",
+    ],
     title: "How Workflow Automation Saves Small Business Owners Time Every Week",
     metaTitle: "How Workflow Automation Saves Business Owners Time",
     description:
@@ -88,6 +95,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "custom-software-vs-off-the-shelf",
+    takeaways: [
+      "Off-the-shelf software is the right call most of the time: it is cheaper, faster to set up, and maintained by someone else.",
+      "Custom software makes sense when your team has built lasting workarounds, or when the process is part of what makes the business different.",
+      "Compare the full cost, including the weekly time lost to workarounds and manual re-entry, not just the subscription price against the build price.",
+    ],
     title: "Custom Software vs. Off-the-Shelf: How to Choose",
     metaTitle: "Custom Software vs. Off-the-Shelf",
     description:
@@ -135,6 +147,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "small-business-guide-to-the-cloud",
+    takeaways: [
+      "Moving to the cloud removes the single point of failure of files living on one laptop or one office server.",
+      "A migration involves choosing a platform, moving files without losing their organization, setting permissions, and configuring backup.",
+      "The value comes from how the cloud is set up; a rushed move just relocates the same disorganization.",
+    ],
     title: "A Small Business's Guide to the Cloud",
     description:
       "What moving to the cloud actually means for a small business, why it matters, and how to do it without creating a new set of problems.",
@@ -181,6 +198,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "signs-your-business-needs-automation",
+    takeaways: [
+      "The five signs: identical repeated tasks, missed steps, growth straining the process, re-typing between systems, and reports compiled by hand.",
+      "Tasks that are identical every time are a good fit for automation; tasks that need judgment each time are not.",
+      "If none of the signs apply, there is no need to automate yet.",
+    ],
     title: "5 Signs Your Business Is Ready for Workflow Automation",
     metaTitle: "5 Signs You're Ready for Workflow Automation",
     description:
@@ -239,6 +261,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "healthcare-automation-without-sacrificing-compliance",
+    takeaways: [
+      "Paper forms and spreadsheets usually carry more compliance risk than a digital system with access controls and an audit trail.",
+      "Low-risk places to start are digital intake and consent forms, automated routing, appointment reminders, and backups.",
+      "Automation supports compliance but does not create it; policies, training, and tools suited to sensitive data still matter.",
+    ],
     title: "How Healthcare Providers Can Automate Administrative Work Without Sacrificing Compliance",
     metaTitle: "Healthcare Automation Without Sacrificing Compliance",
     description:
@@ -288,6 +315,11 @@ export const posts: BlogPost[] = [
   },
   {
     slug: "it-support-in-house-outsourced-or-hybrid",
+    takeaways: [
+      "In-house IT fits businesses with daily, on-site technical needs that justify a full-time salary.",
+      "Outsourced support gives access to expertise without a full-time hire, at the cost of some ramp-up time.",
+      "Many small businesses do best with a hybrid: an internal person for basics and an outside consultant for projects and bigger decisions.",
+    ],
     title: "IT Support: In-House, Outsourced, or Hybrid? A Small Business Guide",
     metaTitle: "IT Support: In-House, Outsourced, or Hybrid?",
     description:

@@ -171,6 +171,27 @@ body {
     box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.5);
   }
 
+  /* Cursor-following glow. --mx/--my are set by PanelGlow from pointer
+     position; ::before is already taken by the top accent line. */
+  .panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(0, 136, 255, 0.13),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .panel:hover::after {
+    opacity: 1;
+  }
+
   /* Index mark - monospace step/order numeral used in place of generic icon badges */
   .index-mark {
     font-family: var(--font-mono);
@@ -335,4 +356,110 @@ body {
   height: 6px;
   border-radius: 999px;
   background: transparent;
+}
+/* Entrance animations done in CSS rather than framer-motion so above-the-fold
+   headline text paints before hydration (JS-gated opacity delays LCP). */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.reveal-words > span {
+  display: inline-block;
+  /* Room for descenders: background-clip:text only paints inside the box,
+     which at this line-height is shorter than a "g" or "y". */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+  animation: rise-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 55ms);
+}
+
+/* Decorative hero visuals */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    transform: scale(0.35);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dash-flow {
+  stroke-dasharray: 6 6;
+  animation: dash-flow 1.2s linear infinite;
+}
+
+.ring-pulse {
+  animation: ring-pulse 3s ease-out infinite;
+}
+
+.float-y {
+  animation: float-y 5s ease-in-out infinite;
+}
+
+.shimmer {
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+
+.spin-slow {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: spin-slow 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .reveal-words > span,
+  .dash-flow,
+  .ring-pulse,
+  .float-y,
+  .shimmer,
+  .spin-slow {
+    animation: none;
+  }
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import AboutContent from "@/components/AboutContent";
-import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, SITE_NAME } from "@/lib/seo";
+import { breadcrumbJsonLd, jsonLdHtml, buildOpenGraph, FOUNDER_JSON_LD, SITE_NAME } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -28,6 +28,10 @@ export default function AboutPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(breadcrumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(FOUNDER_JSON_LD) }}
       />
       <AboutContent />
     </>

@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import MobileContactBar from "@/components/MobileContactBar";
+import PanelGlow from "@/components/PanelGlow";
 import { ORGANIZATION_JSON_LD, WEBSITE_JSON_LD, SITE_NAME, SITE_URL, jsonLdHtml, buildOpenGraph } from "@/lib/seo";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -100,6 +101,7 @@ export default function RootLayout({
           </div>
           <ScrollToTop />
           <MobileContactBar />
+          <PanelGlow />
         </MotionConfig>
         <Analytics />
       </body>

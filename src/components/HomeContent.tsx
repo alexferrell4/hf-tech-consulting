@@ -36,31 +36,37 @@ const stats = [
 const services = [
   {
     icon: Zap,
+    slug: "workflow-automation",
     title: "Workflow Automation",
     description: "Automating repetitive tasks, notifications, document management, and business processes using cloud-based solutions.",
   },
   {
     icon: Code2,
+    slug: "custom-software-development",
     title: "Custom Software Development",
     description: "Designing and developing web applications, dashboards, internal business tools, and mobile solutions tailored to your needs.",
   },
   {
     icon: Cloud,
+    slug: "cloud-solutions",
     title: "Cloud Solutions",
     description: "Private cloud infrastructure, setup, security configuration, and cost optimization, with migration to platforms like Microsoft 365 or Google Workspace when it's the better fit.",
   },
   {
     icon: BarChart3,
+    slug: "data-analytics-reporting",
     title: "Data Analytics & Reporting",
     description: "Developing dashboards, reports, and visualization tools that transform business data into actionable insights.",
   },
   {
     icon: Globe,
-    title: "Website Management",
-    description: "Website maintenance, SSL certificate management, hosting support, domain management, and security updates.",
+    slug: "website-management",
+    title: "Website Development & Management",
+    description: "Building business websites, plus ongoing maintenance, SSL certificate management, hosting support, domain management, and security updates.",
   },
   {
     icon: Headphones,
+    slug: "it-support",
     title: "IT Support",
     description: "Providing troubleshooting, system administration, network support, and technology recommendations.",
   },
@@ -149,27 +155,23 @@ export default function HomeContent() {
             Available for new projects
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-balance"
-          >
+          {/* h1 and intro use CSS entrance animations, not framer-motion: they
+              are the page's largest text, and JS-gated opacity would hold back
+              LCP until hydration. */}
+          <h1 className="rise-in text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-balance">
             <span className="text-accent-secondary">Smart Solutions. Real Results.</span>
             <br />
             <span className="gradient-text">Technology That Drives Business Growth.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
+          <p
+            className="rise-in mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
+            style={{ "--delay": "100ms" } as React.CSSProperties}
           >
             We help businesses streamline operations through technology. Workflow automation,
             custom software development, cloud solutions, and IT support that allows you
             to focus on serving your customers.
-          </motion.p>
+          </p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -263,8 +265,9 @@ export default function HomeContent() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="panel group relative p-8 cursor-pointer"
+                className="panel group relative"
               >
+                <Link href={`/services/${service.slug}`} className="block p-8 h-full">
                 <div className="flex items-start justify-between mb-6">
                   <service.icon
                     className="w-6 h-6 text-accent transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110"
@@ -278,7 +281,11 @@ export default function HomeContent() {
                 <p className="text-muted-foreground leading-relaxed text-sm">
                   {service.description}
                 </p>
-                <div className="mt-6 h-px w-0 bg-accent transition-all duration-300 group-hover:w-12" />
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent">
+                  Learn more
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                </span>
+                </Link>
               </motion.div>
             ))}
           </div>

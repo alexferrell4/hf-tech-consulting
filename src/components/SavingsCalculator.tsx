@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, DollarSign, Sliders, ArrowRight } from "lucide-react";
+import { contactHref } from "@/lib/contact-link";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -165,7 +166,10 @@ export default function SavingsCalculator() {
             </div>
 
             <Link
-              href="/contact"
+              href={contactHref({
+                service: "workflow-automation",
+                note: `From the savings calculator: about ${weeklyHours} hrs/week of manual work at ${currency.format(hourlyCost)}/hr, ${automatable}% automatable. Estimate: ${hours.format(hoursPerYear)} hours and ${currency.format(dollarsPerYear)} per year.`,
+              })}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
             >
               See how we&apos;d approach this

@@ -1,30 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import PageHero from "@/components/PageHero";
+import { ContactVisual } from "@/components/HeroVisuals";
+import ContactForm from "@/components/ContactForm";
+
+const contactRowClass = "flex items-center gap-4 p-4 group";
 
 export default function ContactContent() {
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    // Prevent duplicate loading (React Strict Mode fix)
-    if (loaded.current) return;
-    loaded.current = true;
-
-    const script = document.createElement("script");
-    script.src = "https://form.jotform.com/jsform/261496309774065";
-    script.type = "text/javascript";
-    script.async = true;
-
-    const container = document.getElementById("jotform-container");
-
-    if (container && !container.querySelector("script")) {
-      container.appendChild(script);
-    }
-  }, []);
-
   return (
     <main className="relative pt-32 pb-20">
       {/* Background */}
@@ -37,23 +23,15 @@ export default function ContactContent() {
       <div className="relative max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Contact", href: "/contact" }]} />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-3xl mb-16"
-        >
-          <h1 className="eyebrow mb-4">
-            Contact H.F. Tech Consulting
-          </h1>
-          <p className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
-            {"Let's build something great together"}
-          </p>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Have a project in mind? We would love to hear about it. Send us a message
-            and we will get back to you within 24 hours.
-          </p>
-        </motion.div>
+        <PageHero
+          eyebrow="Contact H.F. Tech Consulting"
+          headline={[
+            { text: "Let's build something" },
+            { text: "great together", className: "gradient-text" },
+          ]}
+          description="Have a project in mind? We would love to hear about it. Send us a message and we will get back to you within 24 hours."
+          visual={<ContactVisual />}
+        />
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Contact Info */}
@@ -74,27 +52,27 @@ export default function ContactContent() {
             </div>
 
             <div className="panel divide-y divide-border">
-              <div className="flex items-center gap-4 p-4">
+              <a href="mailto:alex@hftechconsulting.com" className={contactRowClass}>
                 <Mail className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="text-foreground font-medium">
+                  <p className="text-foreground font-medium group-hover:text-accent transition-colors">
                     alex@hftechconsulting.com
                   </p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 p-4">
+              <a href="tel:+12812233570" className={contactRowClass}>
                 <Phone className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>
-                  <p className="text-foreground font-medium">
+                  <p className="text-foreground font-medium group-hover:text-accent transition-colors">
                     (281) 223-3570
                   </p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 p-4">
+              <div className={contactRowClass}>
                 <MapPin className="w-5 h-5 text-accent shrink-0" strokeWidth={1.5} />
                 <div>
                   <p className="text-sm text-muted-foreground">Location</p>
@@ -119,15 +97,19 @@ export default function ContactContent() {
             </div>
           </motion.div>
 
-          {/* JotForm */}
+          {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <div className="gradient-border p-4 md:p-6">
-              <div id="jotform-container" />
+            <div className="gradient-border p-6 md:p-10">
+              {/* ContactForm reads the URL query (service / note prefill), which
+                  needs a Suspense boundary on a prerendered page. */}
+              <Suspense fallback={<div className="h-96" />}>
+                <ContactForm />
+              </Suspense>
             </div>
           </motion.div>
         </div>

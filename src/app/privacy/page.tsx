@@ -64,7 +64,7 @@ export default function PrivacyPolicyPage() {
               <div className="space-y-4">
                 <p>
                   <span className="text-foreground font-semibold">Information you provide directly.</span>{" "}
-                  When you submit our contact form, we (through our form provider, JotForm) collect the
+                  When you submit our contact form, we (through our email delivery provider, Resend) collect the
                   information you enter — typically your name, email address, phone number, and the
                   details of your message. We use this information only to respond to your inquiry.
                 </p>
@@ -163,7 +163,7 @@ export default function PrivacyPolicyPage() {
               <ul className="space-y-3">
                 {[
                   "Google AdSense — displays advertising and may use cookies as described above",
-                  "JotForm — processes and stores contact form submissions on our behalf",
+                  "Resend — delivers contact form submissions to us by email",
                   "Vercel Analytics — provides aggregated, privacy-conscious website analytics",
                   "Vercel — hosts the Site",
                 ].map((item) => (
