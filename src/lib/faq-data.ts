@@ -56,9 +56,9 @@ export const faqCategories: FaqCategory[] = [
           "Timelines vary by scope. A single automated workflow might take a few days to a couple of weeks, while a custom software build or full website can take several weeks to a few months. You'll get a realistic timeline as part of the project scope before work begins.",
       },
       {
-        question: "Will I work directly with the person doing the work?",
+        question: "Will I have a dedicated point of contact?",
         answer:
-          "Yes. The person who scopes your project is the same person who builds it, and the same person you call when something needs to change—there's no rotating account team or hand-offs between departments.",
+          "Yes. Every client has a dedicated point of contact who knows your systems and stays with the project from scoping through support, so there are no hand-offs between departments and no re-explaining your setup to someone new.",
       },
     ],
   },

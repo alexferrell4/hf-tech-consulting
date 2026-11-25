@@ -35,7 +35,7 @@ const steps = [
   {
     title: "Build, test, support",
     description:
-      "The work is built and tested with your team before it goes live, and supported by the same person afterward.",
+      "The work is built and tested with your team before it goes live, and supported after launch.",
   },
 ];
 
@@ -58,8 +58,8 @@ export default function HomeContent() {
               <span className="block text-muted-foreground">Technology solutions that drive business growth.</span>
             </h1>
             <p className="rise-in mt-8 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl" style={delay(120)}>
-              One consultant, start to finish. The person who scopes your project is the person who
-              builds it, and the one you call when something needs to change.
+              Practical technology work for small and midsize businesses, from the first
+              conversation through ongoing support, with a dedicated point of contact the whole way.
             </p>
             <div className="rise-in flex flex-col sm:flex-row gap-3 mt-10" style={delay(180)}>
               <Link

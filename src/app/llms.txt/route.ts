@@ -12,7 +12,7 @@ export function GET() {
     "",
     "> Business technology consulting firm based in Houston, Texas. Workflow automation, custom software, cloud solutions, data analytics, website management, and IT support for small and midsize businesses, including healthcare providers, home care agencies, and counseling practices.",
     "",
-    `Founded and run by Harrison Ferrell. Clients work directly with the person doing the work. Serves the Greater Houston area and Texas, and remote clients elsewhere. Contact: ${BUSINESS_EMAIL}, ${BUSINESS_PHONE}, ${SITE_URL}/contact`,
+    `Founded by Harrison Ferrell. Each client has a dedicated point of contact from scoping through support. Serves the Greater Houston area and Texas, and remote clients elsewhere. Contact: ${BUSINESS_EMAIL}, ${BUSINESS_PHONE}, ${SITE_URL}/contact`,
     "",
     "## Services",
     "",

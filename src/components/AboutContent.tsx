@@ -16,7 +16,7 @@ const expertise = [
 ];
 
 const reasons = [
-  "Direct access to the person doing the work, not a rotating account team",
+  "A dedicated point of contact who knows your systems, not a rotating account team",
   "Solutions built around your actual process, not a one-size-fits-all package",
   "Specialized experience with healthcare, home care and counseling organizations",
   "Houston-based, with the flexibility to support remote and hybrid teams",
@@ -32,7 +32,7 @@ export default function AboutContent() {
 
         <PageHero
           label="About"
-          title="A one-consultant technology practice in Houston"
+          title="A Houston technology consulting firm"
           description="H.F. Tech Consulting builds and supports the systems small businesses run on: automated workflows, custom tools, websites, cloud setups and day-to-day IT."
           aside={
             <dl className="space-y-3">
@@ -58,11 +58,11 @@ export default function AboutContent() {
               the budget or the day-to-day need to justify either one.
             </p>
             <p>
-              Instead of a large team and a rotating cast of account managers, H.F. Tech Consulting
-              works directly with each client. The person who scopes your project is the same person
-              who builds it, and the same person you call when something needs to change. That&apos;s
-              what makes it possible to build around how a business actually operates, rather than
-              selling a generic package.
+              H.F. Tech Consulting keeps engagements direct. Every client has a dedicated point of
+              contact who knows their systems, from the first conversation through ongoing support,
+              instead of being handed between departments and account managers. That&apos;s what makes
+              it possible to build around how a business actually operates, rather than selling a
+              generic package.
             </p>
           </div>
         </section>
