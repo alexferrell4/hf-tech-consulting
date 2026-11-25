@@ -169,7 +169,7 @@ export function ServiceQuizCard({
                 {ResultIcon && (
                   <ResultIcon className="w-10 h-10 text-accent mx-auto mb-4" strokeWidth={1.5} />
                 )}
-                <h3 className={`font-bold text-foreground mb-4 text-balance ${compact ? "text-xl" : "text-2xl sm:text-3xl"}`}>
+                <h3 className={`font-semibold text-foreground mb-4 text-balance ${compact ? "text-xl" : "text-2xl sm:text-3xl"}`}>
                   {result.title}
                 </h3>
                 <p className={`text-muted-foreground leading-relaxed max-w-xl mx-auto ${compact ? "text-sm mb-6" : "mb-8"}`}>
@@ -181,7 +181,7 @@ export function ServiceQuizCard({
                       type="button"
                       disabled={alreadyPicked}
                       onClick={() => onPick(result.slug)}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] disabled:bg-muted disabled:text-foreground transition-all duration-200"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover disabled:bg-muted disabled:text-foreground transition-all duration-200"
                     >
                       {alreadyPicked ? (
                         <>
@@ -208,17 +208,17 @@ export function ServiceQuizCard({
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href={`/services/${result.slug}`}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover transition-all duration-200 group"
                   >
                     Learn More
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href={contactHref({
                       service: result.slug,
                       note: `From the service quiz: ${answers.join(" / ")}`,
                     })}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-full hover:bg-muted active:scale-[0.97] transition-all duration-200"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-border text-foreground font-medium rounded-md hover:bg-muted transition-all duration-200"
                   >
                     Talk to Us About It
                   </Link>
@@ -250,7 +250,7 @@ export function ServiceQuizCard({
                       key={option.label}
                       type="button"
                       onClick={() => handleAnswer(option)}
-                      className={`text-left rounded-[calc(var(--radius)-6px)] border border-border bg-background/50 text-foreground hover:border-accent/40 hover:bg-accent/5 active:scale-[0.98] transition-all duration-200 ${compact ? "px-4 py-3 text-sm" : "px-5 py-4"}`}
+                      className={`text-left rounded-[calc(var(--radius)-6px)] border border-border bg-background/50 text-foreground hover:border-accent/40 hover:bg-accent/5 transition-all duration-200 ${compact ? "px-4 py-3 text-sm" : "px-5 py-4"}`}
                     >
                       {option.label}
                     </button>
@@ -265,33 +265,20 @@ export function ServiceQuizCard({
 
 export default function ServiceQuiz() {
   return (
-    <section className="py-32 relative">
-      <div className="absolute inset-0 bg-muted/30" />
-      <div className="absolute inset-0 circuit-pattern opacity-50" />
-      <div className="relative max-w-3xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="eyebrow mb-4">Not Sure Where to Start?</h2>
-          <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
-            Find the Right Service for Your Business
+    <section id="quiz" className="bg-muted border-y border-border scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-[320px_minmax(0,1fr)] gap-12">
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground text-balance">
+            Not sure which service you need?
+          </h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            Three questions, about thirty seconds. You&apos;ll get a recommendation and can take it
+            straight into a conversation or a quote request.
           </p>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            Answer three quick questions and we&apos;ll point you to the service that fits best.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="panel p-8 md:p-12"
-        >
+        </div>
+        <div className="panel p-6 sm:p-10">
           <ServiceQuizCard />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

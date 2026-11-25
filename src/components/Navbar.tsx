@@ -4,21 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+
+const links = [
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/about", label: "About" },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -37,89 +34,44 @@ export default function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-
-  // ✅ REMOVED dropdown logic and hasDropdown
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/blog", label: "Blog" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/about", label: "About" },
-  ];
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <>
       {/* Top bar */}
-      <div className="hidden lg:block bg-card border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
-          <div className="flex items-center gap-6 text-sm">
-            <a
-              href="mailto:alex@hftechconsulting.com"
-              className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              <Mail className="w-4 h-4" />
-              alex@hftechconsulting.com
-            </a>
-
-            <a
-              href="tel:+12812233570"
-              className="flex items-center gap-2 text-muted-foreground hover:text-accent transition-colors"
-            >
-              <Phone className="w-4 h-4" />
+      <div className="hidden lg:block border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-sm text-muted-foreground">
+          <span>Houston, Texas · Taking new projects</span>
+          <div className="flex items-center gap-6">
+            <a href="tel:+12812233570" className="hover:text-foreground transition-colors">
               (281) 223-3570
             </a>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-            <span className="text-sm text-muted-foreground">Available Now</span>
+            <a href="mailto:alex@hftechconsulting.com" className="hover:text-foreground transition-colors">
+              alex@hftechconsulting.com
+            </a>
           </div>
         </div>
       </div>
 
       {/* Main navbar */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-background/95 backdrop-blur-xl shadow-lg shadow-black/10"
-            : "bg-background"
-        } border-b border-border`}
-      >
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative w-10 h-10">
               <Image
                 src="/logo-emblem.png"
                 alt="H.F. Tech Consulting logo"
                 fill
-                sizes="48px"
+                sizes="40px"
                 className="object-contain"
                 priority
               />
             </div>
-
-            <div className="hidden sm:block">
-              <span className="text-foreground font-bold text-xl tracking-tight block leading-tight">
-                H.F. Tech
-              </span>
-              <span className="text-accent text-[10px] tracking-[0.2em] uppercase font-medium">
-                Consulting
-              </span>
-            </div>
+            <span className="text-foreground font-semibold text-lg tracking-tight">H.F. Tech Consulting</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8">
             {links.map((link) => {
               const active = isActive(link.href);
               return (
@@ -127,139 +79,100 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`relative px-4 py-2 font-medium transition-colors duration-200 group ${
-                    active ? "text-foreground" : "text-foreground/80 hover:text-foreground"
+                  className={`text-[15px] font-medium underline-offset-[6px] decoration-2 transition-colors ${
+                    active
+                      ? "text-foreground underline decoration-accent"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {link.label}
-
-                  {/* underline effect */}
-                  <span
-                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-accent to-accent-secondary transition-all duration-300 ${
-                      active ? "w-3/4" : "w-0 group-hover:w-3/4"
-                    }`}
-                  />
                 </Link>
               );
             })}
           </div>
 
-          {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-3">
             <Link
               href="/contact"
               aria-current={isActive("/contact") ? "page" : undefined}
-              className={`inline-flex items-center px-5 py-2.5 font-semibold rounded-full border active:scale-[0.97] transition-all duration-200 ${
+              className={`inline-flex items-center px-4 py-2 text-[15px] font-medium rounded-md border transition-colors ${
                 isActive("/contact")
-                  ? "border-accent/60 text-foreground bg-accent/10"
-                  : "border-border text-foreground hover:border-accent/50 hover:bg-muted"
+                  ? "border-foreground text-foreground"
+                  : "border-border text-foreground hover:border-foreground"
               }`}
             >
               Contact Us
             </Link>
             <Link
               href="/quote"
-              className="relative inline-flex items-center gap-2 px-6 py-2.5 font-semibold rounded-full overflow-hidden group active:scale-[0.97] transition-transform duration-200"
+              aria-current={isActive("/quote") ? "page" : undefined}
+              className="inline-flex items-center px-4 py-2 text-[15px] font-medium rounded-md bg-accent-cta text-accent-foreground hover:bg-accent-cta-hover transition-colors"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-accent-cta to-blue-600 transition-transform duration-300 group-hover:scale-105" />
-              <span className="relative text-white">Get a Quote</span>
+              Get a Quote
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-foreground p-2 hover:bg-muted rounded-lg transition-colors"
+            className="lg:hidden text-foreground p-2 hover:bg-muted rounded-md transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="lg:hidden overflow-hidden bg-background border-t border-border"
-            >
-              <div className="px-6 py-6 flex flex-col gap-1">
-                {links.map((link, i) => (
-                  <motion.div
+        {open && (
+          <div className="lg:hidden bg-background border-t border-border">
+            <div className="px-6 py-6 flex flex-col">
+              {[{ href: "/", label: "Home" }, ...links].map((link) => {
+                const active = link.href === "/" ? pathname === "/" : isActive(link.href);
+                return (
+                  <Link
                     key={link.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      aria-current={isActive(link.href) ? "page" : undefined}
-                      className={`block py-3 px-4 text-lg rounded-lg transition-all font-medium ${
-                        isActive(link.href)
-                          ? "text-accent bg-accent/10"
-                          : "text-foreground hover:bg-muted"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                ))}
-
-                {/* Contact Info */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="pt-4 space-y-3"
-                >
-                  <a
-                    href="mailto:alex@hftechconsulting.com"
-                    className="flex items-center gap-3 px-4 py-1 text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span className="text-sm">alex@hftechconsulting.com</span>
-                  </a>
-
-                  <a
-                    href="tel:+12812233570"
-                    className="flex items-center gap-3 px-4 py-1 text-muted-foreground hover:text-accent transition-colors"
-                  >
-                    <Phone className="w-4 h-4" />
-                    <span className="text-sm">(281) 223-3570</span>
-                  </a>
-                </motion.div>
-
-                {/* CTA */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="pt-4 space-y-3"
-                >
-                  <Link
-                    href="/contact"
+                    href={link.href}
                     onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center w-full px-5 py-3 border border-border text-foreground font-semibold rounded-full"
+                    aria-current={active ? "page" : undefined}
+                    className={`py-3 text-lg font-medium border-b border-border ${
+                      active ? "text-accent" : "text-foreground"
+                    }`}
                   >
-                    Contact Us
+                    {link.label}
                   </Link>
-                  <Link
-                    href="/quote"
-                    onClick={() => setOpen(false)}
-                    className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
-                  >
-                    Get a Quote
-                  </Link>
-                </motion.div>
+                );
+              })}
+
+              <div className="pt-5 space-y-2 text-sm text-muted-foreground">
+                <a href="tel:+12812233570" className="block py-1 hover:text-foreground">
+                  (281) 223-3570
+                </a>
+                <a href="mailto:alex@hftechconsulting.com" className="block py-1 hover:text-foreground">
+                  alex@hftechconsulting.com
+                </a>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+
+              <div className="pt-5 grid grid-cols-2 gap-3">
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center px-4 py-3 border border-foreground text-foreground font-medium rounded-md"
+                >
+                  Contact Us
+                </Link>
+                <Link
+                  href="/quote"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center px-4 py-3 bg-accent-cta text-accent-foreground font-medium rounded-md"
+                >
+                  Get a Quote
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
     </>
   );
 }

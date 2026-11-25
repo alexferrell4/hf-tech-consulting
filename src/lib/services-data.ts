@@ -304,7 +304,7 @@ export const services: Service[] = [
     title: "Data Analytics & Reporting",
     shortTitle: "Data Analytics & Reporting",
     description:
-      "Developing dashboards, reports, and visualization tools that transform business data into actionable insights.",
+      "Dashboards and automated reports built from the data you already have, so you can see how the business is doing without pulling numbers by hand.",
     metaDescription:
       "Data analytics and reporting for Houston-area businesses — custom dashboards, automated reports, and clear visualizations built from your data.",
     features: [

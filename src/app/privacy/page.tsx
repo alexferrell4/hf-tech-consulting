@@ -34,17 +34,13 @@ export default function PrivacyPolicyPage() {
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(breadcrumbs) }}
       />
 
-      <main className="relative pt-32 pb-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-          <div className="absolute inset-0 circuit-pattern opacity-30" />
-        </div>
+      <main className="pt-12 pb-20">
 
         <div className="relative max-w-3xl mx-auto px-6">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Privacy Policy", href: "/privacy" }]} />
 
           <h1 className="eyebrow mb-4">Legal</h1>
-          <p className="text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance">
+          <p className="text-4xl sm:text-5xl font-semibold text-foreground mb-6 text-balance">
             Privacy Policy
           </p>
           <p className="text-muted-foreground mb-16">Effective date: {EFFECTIVE_DATE}</p>
@@ -60,7 +56,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Information We Collect</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Information We Collect</h2>
               <div className="space-y-4">
                 <p>
                   <span className="text-foreground font-semibold">Information you provide directly.</span>{" "}
@@ -86,7 +82,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">How We Use Information</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">How We Use Information</h2>
               <ul className="space-y-3">
                 {[
                   "To respond to inquiries submitted through our contact form",
@@ -103,7 +99,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Cookies &amp; Advertising</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Cookies &amp; Advertising</h2>
               <div className="space-y-4">
                 <p>
                   This Site uses Google AdSense to serve advertisements. Google, as a third-party
@@ -158,7 +154,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Third-Party Services</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Third-Party Services</h2>
               <p className="mb-4">We rely on the following third-party services to operate the Site:</p>
               <ul className="space-y-3">
                 {[
@@ -180,7 +176,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Information Sharing</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Information Sharing</h2>
               <p>
                 We do not sell your personal information. We share information only with the
                 third-party service providers described above, as necessary to operate the Site and
@@ -189,7 +185,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Your Choices</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Your Choices</h2>
               <p>
                 You can decline to submit personal information by not using our contact form — this
                 will only limit our ability to respond to you directly. You can control or delete
@@ -201,7 +197,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Children&apos;s Privacy</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Children&apos;s Privacy</h2>
               <p>
                 This Site is not directed at children under the age of 13, and we do not knowingly
                 collect personal information from children under 13.
@@ -209,7 +205,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Data Security</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Data Security</h2>
               <p>
                 We take reasonable measures to protect information submitted through the Site, but no
                 method of transmission or storage over the internet is completely secure, and we cannot
@@ -218,7 +214,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Changes to This Policy</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Changes to This Policy</h2>
               <p>
                 We may update this Privacy Policy from time to time. Any changes will be posted on this
                 page with an updated effective date.
@@ -226,7 +222,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Contact Us</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">Contact Us</h2>
               <p>
                 If you have questions about this Privacy Policy or how we handle your information,
                 contact us at{" "}

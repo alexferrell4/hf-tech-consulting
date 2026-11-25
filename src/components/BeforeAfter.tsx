@@ -19,22 +19,22 @@ export default function BeforeAfter({ before, after }: { before: string[]; after
   return (
     <div className="panel p-8">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <h2 className="text-2xl font-bold text-foreground">What Changes</h2>
-        <div role="group" aria-label="Compare before and after" className="flex rounded-full border border-border p-1">
+        <h2 className="text-2xl font-semibold text-foreground">What changes</h2>
+        <div role="group" aria-label="Compare before and after" className="flex rounded-md border border-foreground p-0.5">
           {MODES.map(({ id, label }) => (
             <button
               key={id}
               type="button"
               aria-pressed={mode === id}
               onClick={() => setMode(id)}
-              className={`relative px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-                mode === id ? "text-white" : "text-muted-foreground hover:text-foreground"
+              className={`relative px-4 py-1.5 rounded-[4px] text-sm font-medium transition-colors ${
+                mode === id ? (id === "after" ? "text-accent-foreground" : "text-background") : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {mode === id && (
                 <motion.span
                   layoutId="before-after-highlight"
-                  className={`absolute inset-0 rounded-full ${id === "after" ? "bg-accent-cta" : "bg-muted"}`}
+                  className={`absolute inset-0 rounded-[4px] ${id === "after" ? "bg-accent-cta" : "bg-foreground"}`}
                   transition={{ type: "spring", stiffness: 400, damping: 35 }}
                 />
               )}

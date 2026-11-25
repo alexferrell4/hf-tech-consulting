@@ -1,55 +1,41 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { clients } from "@/lib/clients-data";
 
+function ClientTile({ name, logoSrc }: { name: string; logoSrc?: string }) {
+  return (
+    <div className="flex w-44 sm:w-52 shrink-0 flex-col items-center gap-3 px-3">
+      {/* Logos are drawn for white backgrounds, so each sits on a light tile. */}
+      <div className="relative h-20 w-full rounded-[4px] bg-[#f3f0e8]">
+        {logoSrc && <Image src={logoSrc} alt="" fill sizes="208px" className="object-contain p-3" />}
+      </div>
+      <span className="text-xs text-center text-muted-foreground leading-snug">{name}</span>
+    </div>
+  );
+}
+
+// Continuously scrolling logo strip. The list is rendered twice so the CSS
+// marquee (translateX 0 → -50%) loops seamlessly; the second copy is hidden
+// from assistive tech. Pauses on hover and stops under reduced motion.
 export default function ClientsCarousel() {
   if (clients.length === 0) return null;
 
-  // Duplicate the list so the marquee can loop seamlessly at -50%.
-  const track = [...clients, ...clients];
-
   return (
-    <div className="pt-10 border-t border-border/50">
-      <p className="text-center text-sm uppercase tracking-widest text-muted-foreground mb-8">
-        Trusted By
-      </p>
-
-      <div className="relative overflow-hidden marquee-fade">
-        <div className="flex w-max marquee-track">
-          {track.map((client, i) => (
-            <motion.div
-              key={`${client.name}-${i}`}
-              className="flex items-center justify-center px-10 shrink-0"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 18,
-                delay: 0.6 + (i % clients.length) * 0.08,
-              }}
-              whileHover={{ scale: 1.12 }}
-            >
-              {client.logoSrc ? (
-                <div className="relative h-12 w-36">
-                  <Image
-                    src={client.logoSrc}
-                    alt={client.name}
-                    fill
-                    sizes="144px"
-                    className="object-contain"
-                  />
-                </div>
-              ) : (
-                <span className="text-lg font-semibold tracking-tight text-muted-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
-                  {client.name}
-                </span>
-              )}
-            </motion.div>
+    <div className="marquee-fade overflow-hidden">
+      <div className="marquee-track flex w-max">
+        <ul className="flex" aria-label="Clients">
+          {clients.map((client) => (
+            <li key={client.name}>
+              <ClientTile {...client} />
+            </li>
           ))}
-        </div>
+        </ul>
+        <ul className="flex" aria-hidden="true">
+          {clients.map((client) => (
+            <li key={client.name}>
+              <ClientTile {...client} />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

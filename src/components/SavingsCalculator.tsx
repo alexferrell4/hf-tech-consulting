@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, DollarSign, Sliders, ArrowRight } from "lucide-react";
 import { contactHref } from "@/lib/contact-link";
 
 const currency = new Intl.NumberFormat("en-US", {
@@ -69,30 +68,19 @@ export default function SavingsCalculator() {
   }, [weeklyHours, hourlyCost, automatable]);
 
   return (
-    <section className="py-32">
-      <div className="max-w-5xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="eyebrow mb-4">Estimate Your Savings</h2>
-          <p className="text-4xl sm:text-5xl font-bold text-foreground text-balance">
-            What Could Automation Be Worth to You?
+    <section>
+      <div className="max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-[320px_minmax(0,1fr)] gap-12">
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground text-balance">
+            What could automation be worth to you?
+          </h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            Move the sliders to match your business. It&apos;s a rough estimate to start the
+            conversation; real numbers depend on your actual processes.
           </p>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Adjust the sliders to match your business. This is a rough estimate to get you
-            thinking — your actual results depend on your specific processes.
-          </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="panel p-8 md:p-12 grid md:grid-cols-2 gap-12"
-        >
+        <div className="panel p-6 sm:p-10 grid md:grid-cols-2 gap-12">
           <div className="space-y-10">
             <Slider
               label="Hours per week on manual, repetitive tasks"
@@ -122,7 +110,6 @@ export default function SavingsCalculator() {
               formatValue={(v) => `${v}%`}
             />
             <div className="flex items-start gap-3 text-xs text-muted-foreground">
-              <Sliders className="w-4 h-4 flex-shrink-0 mt-0.5" strokeWidth={1.75} />
               <span>
                 Most rules-based, repetitive tasks (data entry, scheduling, notifications,
                 document handling) can be partially or fully automated. 30% is a reasonable
@@ -133,35 +120,33 @@ export default function SavingsCalculator() {
 
           <div className="flex flex-col justify-center">
             <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="rounded-[calc(var(--radius)-6px)] border border-border bg-background/50 p-6 text-center">
-                <Clock className="w-5 h-5 text-accent mx-auto mb-3" strokeWidth={1.5} />
+              <div className="border-t-2 border-foreground pt-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={Math.round(hoursPerYear)}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="text-2xl sm:text-3xl font-bold text-foreground font-mono tabular-nums"
+                    className="text-3xl sm:text-4xl font-semibold text-foreground font-mono tabular-nums"
                   >
                     {hours.format(hoursPerYear)}
                   </motion.div>
                 </AnimatePresence>
-                <div className="text-xs text-muted-foreground mt-2">hours saved / year</div>
+                <div className="text-sm text-muted-foreground mt-1">hours saved per year</div>
               </div>
-              <div className="rounded-[calc(var(--radius)-6px)] border border-border bg-background/50 p-6 text-center">
-                <DollarSign className="w-5 h-5 text-accent mx-auto mb-3" strokeWidth={1.5} />
+              <div className="border-t-2 border-foreground pt-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={Math.round(dollarsPerYear)}
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="text-2xl sm:text-3xl font-bold text-foreground font-mono tabular-nums"
+                    className="text-3xl sm:text-4xl font-semibold text-foreground font-mono tabular-nums"
                   >
                     {currency.format(dollarsPerYear)}
                   </motion.div>
                 </AnimatePresence>
-                <div className="text-xs text-muted-foreground mt-2">value / year</div>
+                <div className="text-sm text-muted-foreground mt-1">value per year</div>
               </div>
             </div>
 
@@ -170,16 +155,15 @@ export default function SavingsCalculator() {
                 service: "workflow-automation",
                 note: `From the savings calculator: about ${weeklyHours} hrs/week of manual work at ${currency.format(hourlyCost)}/hr, ${automatable}% automatable. Estimate: ${hours.format(hoursPerYear)} hours and ${currency.format(dollarsPerYear)} per year.`,
               })}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover transition-colors"
             >
-              See how we&apos;d approach this
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Talk through these numbers
             </Link>
-            <p className="text-xs text-muted-foreground text-center mt-4">
-              Estimate only, not a quote. We&apos;ll give you real numbers after a consultation.
+            <p className="text-xs text-muted-foreground mt-4">
+              Estimate only, not a quote. Real numbers come after a consultation.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

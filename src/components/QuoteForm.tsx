@@ -12,10 +12,10 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const STEPS = ["Services", "Scope", "Your details"];
 
 const inputClass =
-  "w-full rounded-[calc(var(--radius)-4px)] border border-border bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:border-accent/60 focus:outline-none transition-colors aria-[invalid=true]:border-red-400/70";
+  "w-full rounded-[calc(var(--radius)-4px)] border border-border bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:border-accent/60 focus:outline-none transition-colors aria-[invalid=true]:border-red-400";
 
 const chipClass = (selected: boolean) =>
-  `px-4 py-2.5 rounded-full border text-sm font-medium cursor-pointer transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${
+  `px-4 py-2.5 rounded-md border text-sm font-medium cursor-pointer transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${
     selected
       ? "border-accent/60 bg-accent/10 text-foreground"
       : "border-border text-muted-foreground hover:border-accent/30 hover:text-foreground"
@@ -138,7 +138,7 @@ export default function QuoteForm({
         role="status"
       >
         <CheckCircle2 className="w-14 h-14 text-accent mx-auto mb-6" strokeWidth={1.25} />
-        <h2 className="text-2xl font-bold text-foreground mb-3">Quote request received</h2>
+        <h2 className="text-2xl font-semibold text-foreground mb-3">Quote request received</h2>
         <p className="text-muted-foreground max-w-sm mx-auto">
           Thanks, {name.trim().split(" ")[0]}. We&apos;ll review the details and get back to you
           with a quote, typically within 24 hours on business days.
@@ -399,7 +399,7 @@ export default function QuoteForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] disabled:opacity-60 transition-all duration-200 group"
+          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover disabled:opacity-60 transition-all duration-200 group"
         >
           {status === "sending" ? (
             <>
@@ -409,7 +409,7 @@ export default function QuoteForm({
           ) : step < 2 ? (
             <>
               Continue
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </>
           ) : (
             "Request quote"

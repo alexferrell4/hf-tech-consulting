@@ -121,7 +121,7 @@ export default function BlogGallery({
             >
               <ChevronRight className="w-5 h-5" />
             </button>
-            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-background/80 text-xs font-medium text-foreground pointer-events-none">
+            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-md bg-background/80 text-xs font-medium text-foreground pointer-events-none">
               {index + 1} / {images.length}
             </div>
           </>
@@ -212,7 +212,7 @@ export default function BlogGallery({
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-white">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-md bg-white/10 text-xs font-medium text-white">
                     {index + 1} / {images.length}
                   </div>
                 </>

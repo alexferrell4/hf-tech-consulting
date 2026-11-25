@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
+/* Dark, neutral palette (no blue tint, no glows). The logo blue is the only
+   accent: a lighter shade for text/links, a deeper one for button fills.
+   Contrast (WCAG AA): --muted-foreground on --background ~8:1, --accent on
+   --background ~7:1, white on --accent-cta ~5.8:1. */
 :root {
-  --background: #030508;
-  --foreground: #f0f4f8;
-  --card: #0a0f14;
-  --card-foreground: #f0f4f8;
-  --muted: #121a22;
-  --muted-foreground: #8b9db5;
-  --accent: #0088ff;
-  --accent-secondary: #b8c5d6;
+  --background: #0e1013;
+  --foreground: #ecebe6;
+  --card: #16191e;
+  --card-foreground: #ecebe6;
+  --muted: #1d2127;
+  --muted-foreground: #a3a9b2;
+  --accent: #6ea0ff;
+  --accent-secondary: #c3c9d1;
   --accent-foreground: #ffffff;
-  /* Darker than --accent specifically for solid fills under white text —
-     #0088ff + white only hits 3.52:1 contrast (fails WCAG AA's 4.5:1 for
-     normal-weight text); this shade clears it at ~5.6:1. Text/icon/border
-     uses of --accent against the near-black page background are unaffected
-     and already pass comfortably, so only button fills use this token. */
-  --accent-cta: #0066cc;
-  --border: #1e2a38;
-  --ring: #0088ff;
-  --radius: 0.75rem;
+  --accent-cta: #1f5fd6;
+  --accent-cta-hover: #2b6be0;
+  --border: #2b3038;
+  --ring: #6ea0ff;
+  /* Slightly raised surface for the footer and closing call-to-action bands. */
+  --ink: #16191e;
+  --ink-foreground: #ecebe6;
+  --radius: 6px;
+}
+
+html {
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -32,10 +39,13 @@
   --color-accent-secondary: var(--accent-secondary);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-cta: var(--accent-cta);
+  --color-accent-cta-hover: var(--accent-cta-hover);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 * {
@@ -50,7 +60,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
 }
 
 ::selection {
@@ -77,7 +87,7 @@ body {
   background: var(--accent);
   color: var(--accent-foreground);
   padding: 0.75rem 1.25rem;
-  border-radius: 9999px;
+  border-radius: var(--radius);
   font-weight: 500;
   font-size: 0.875rem;
   transition: top 0.2s ease;
@@ -88,116 +98,39 @@ body {
   outline-offset: 4px;
 }
 
-/* Gradient text utility - Blue to Silver */
-.gradient-text {
-  background: linear-gradient(135deg, #0088ff 0%, #b8c5d6 50%, #0088ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Silver text */
-.silver-text {
-  color: #b8c5d6;
-}
-
-/* Animated gradient border - Blue to Silver */
-.gradient-border {
-  position: relative;
-  background: var(--card);
-  border-radius: var(--radius);
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius);
-  padding: 1px;
-  background: linear-gradient(135deg, #0088ff, #b8c5d6, #0066cc);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Glow effect - Blue */
-.glow {
-  box-shadow: 0 0 40px rgba(0, 136, 255, 0.15);
-}
-
 /* Component-layer utilities: placed in Tailwind's "components" layer so
    responsive/state Tailwind utilities (e.g. md:hidden) still win over them,
    per Tailwind v4's cascade-layer ordering (components < utilities). */
 @layer components {
-  /* Eyebrow label - mono, tracked-out section kicker */
+  /* Small monospace label. Used sparingly, not above every heading. */
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--muted-foreground);
   }
 
-  /* Panel - restrained card surface, used instead of gradient-border for dense grids */
-  .panel {
+  /* Plain bordered card surface. */
+  .panel,
+  .gradient-border {
     position: relative;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    transition: border-color 0.15s ease;
   }
 
-  .panel::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 1.25rem;
-    right: 1.25rem;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.5;
+  a.panel:hover,
+  .panel:has(> a):hover {
+    border-color: var(--foreground);
   }
 
-  .panel:hover {
-    /* No transform here: framer-motion sets an inline transform (its
-       entrance animation's resting value) on most .panel elements, and
-       inline styles always beat stylesheet rules — fighting that with
-       !important risks jank on the cards that use whileHover for their own
-       lift. box-shadow/border/background aren't touched inline, so they
-       reliably apply everywhere. */
-    border-color: rgba(0, 136, 255, 0.4);
-    background: #0c131a;
-    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Cursor-following glow. --mx/--my are set by PanelGlow from pointer
-     position; ::before is already taken by the top accent line. */
-  .panel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(
-      260px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(0, 136, 255, 0.13),
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .panel:hover::after {
-    opacity: 1;
-  }
-
-  /* Index mark - monospace step/order numeral used in place of generic icon badges */
+  /* Monospace step/order numeral */
   .index-mark {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    color: var(--accent);
-    opacity: 0.55;
+    color: var(--muted-foreground);
   }
 
   /* Stepper - connected horizontal process timeline */
@@ -206,75 +139,25 @@ body {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 9999px;
-    border: 1px solid rgba(0, 136, 255, 0.4);
-    background: var(--card);
+    border: 1px solid var(--foreground);
+    background: var(--background);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-mono);
     font-size: 0.875rem;
-    color: var(--accent);
+    color: var(--foreground);
     flex-shrink: 0;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .stepper-node:hover {
-    transform: scale(1.12);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(0, 136, 255, 0.12);
   }
 
   .stepper-line {
     height: 1px;
     flex: 1;
-    background: linear-gradient(90deg, rgba(0, 136, 255, 0.5), rgba(184, 197, 214, 0.15));
+    background: var(--foreground);
   }
 }
 
-/* Blue glow */
-.blue-glow {
-  box-shadow: 0 0 60px rgba(0, 136, 255, 0.25);
-}
-
-/* Grid pattern background */
-.grid-pattern {
-  background-image: 
-    linear-gradient(rgba(0, 136, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 136, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* Circuit-trace pattern, drawn from the mark's own PCB-trace motif */
-.circuit-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%230088ff' stroke-width='1'%3E%3Cpath d='M14 28 H54 V64' opacity='0.14'/%3E%3Cpath d='M166 120 H126 V92 L108 74' opacity='0.1'/%3E%3Cpath d='M30 146 V166 H66' opacity='0.08'/%3E%3Cpath d='M150 20 V40 H120' stroke='%23b8c5d6' opacity='0.08'/%3E%3C/g%3E%3Cg fill='%230088ff'%3E%3Ccircle cx='54' cy='64' r='2.5' opacity='0.16'/%3E%3Ccircle cx='108' cy='74' r='2.5' opacity='0.12'/%3E%3Ccircle cx='66' cy='166' r='2' opacity='0.1'/%3E%3C/g%3E%3Ccircle cx='120' cy='40' r='2' fill='%23b8c5d6' opacity='0.1'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-/* Noise texture overlay */
-.noise {
-  position: relative;
-}
-
-.noise::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.02;
-  pointer-events: none;
-}
-
-/* Metallic shine effect */
-.metallic-shine {
-  background: linear-gradient(
-    135deg,
-    rgba(184, 197, 214, 0) 0%,
-    rgba(184, 197, 214, 0.1) 50%,
-    rgba(184, 197, 214, 0) 100%
-  );
-}
-
-/* Auto-scrolling logo/client marquee */
+/* Client logo row */
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -290,17 +173,11 @@ body {
 }
 
 .marquee-track {
-  animation: marquee 32s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
 .marquee-track:hover {
   animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
 }
 
 /* Savings calculator range inputs. The --fill custom property (set inline
@@ -311,11 +188,11 @@ body {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
+  height: 4px;
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    var(--accent) var(--fill, 0%),
+    var(--foreground) var(--fill, 0%),
     var(--border) var(--fill, 0%)
   );
   outline: none;
@@ -328,41 +205,32 @@ body {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent-foreground);
-  border: 3px solid var(--accent);
+  background: var(--card);
+  border: 2px solid var(--foreground);
   cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.savings-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
 }
 
 .savings-slider::-moz-range-thumb {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent-foreground);
-  border: 3px solid var(--accent);
+  background: var(--card);
+  border: 2px solid var(--foreground);
   cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.savings-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
 }
 
 .savings-slider::-moz-range-track {
-  height: 6px;
+  height: 4px;
   border-radius: 999px;
   background: transparent;
 }
-/* Entrance animations done in CSS rather than framer-motion so above-the-fold
-   headline text paints before hydration (JS-gated opacity delays LCP). */
+
+/* Short CSS entrance for above-the-fold content (no JS needed, so it paints
+   before hydration). Everything below the fold is static. */
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -371,95 +239,13 @@ body {
 }
 
 .rise-in {
-  animation: rise-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: rise-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: var(--delay, 0ms);
-}
-
-.reveal-words > span {
-  display: inline-block;
-  /* Room for descenders: background-clip:text only paints inside the box,
-     which at this line-height is shorter than a "g" or "y". */
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
-  animation: rise-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: calc(var(--i) * 55ms);
-}
-
-/* Decorative hero visuals */
-@keyframes dash-flow {
-  to {
-    stroke-dashoffset: -24;
-  }
-}
-
-@keyframes ring-pulse {
-  0% {
-    transform: scale(0.35);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes shimmer {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.9;
-  }
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.dash-flow {
-  stroke-dasharray: 6 6;
-  animation: dash-flow 1.2s linear infinite;
-}
-
-.ring-pulse {
-  animation: ring-pulse 3s ease-out infinite;
-}
-
-.float-y {
-  animation: float-y 5s ease-in-out infinite;
-}
-
-.shimmer {
-  animation: shimmer 2.4s ease-in-out infinite;
-}
-
-.spin-slow {
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: spin-slow 8s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rise-in,
-  .reveal-words > span,
-  .dash-flow,
-  .ring-pulse,
-  .float-y,
-  .shimmer,
-  .spin-slow {
+  .marquee-track {
     animation: none;
   }
 }

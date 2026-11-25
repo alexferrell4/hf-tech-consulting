@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { MotionConfig } from "framer-motion";
@@ -8,11 +8,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import MobileContactBar from "@/components/MobileContactBar";
-import PanelGlow from "@/components/PanelGlow";
 import { ORGANIZATION_JSON_LD, WEBSITE_JSON_LD, SITE_NAME, SITE_URL, jsonLdHtml, buildOpenGraph } from "@/lib/seo";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+const plexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex-sans",
+});
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -70,8 +73,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-background">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-foreground antialiased`}>
+    <html lang="en" className={`${plexSans.variable} ${plexMono.variable} bg-background`}>
+      <body className="font-sans bg-background text-foreground antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLdHtml(ORGANIZATION_JSON_LD) }}
@@ -91,8 +94,6 @@ export default function RootLayout({
         </a>
         <MotionConfig reducedMotion="user">
           <div className="relative min-h-screen">
-            <div className="fixed inset-0 grid-pattern pointer-events-none" />
-            <div className="fixed inset-0 noise pointer-events-none" />
             <div className="relative z-10 pb-16 lg:pb-0">
               <Navbar />
               <div id="main-content">{children}</div>
@@ -101,7 +102,6 @@ export default function RootLayout({
           </div>
           <ScrollToTop />
           <MobileContactBar />
-          <PanelGlow />
         </MotionConfig>
         <Analytics />
       </body>

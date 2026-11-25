@@ -1,123 +1,56 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { services } from "@/lib/services-data";
 
-const footerLinks = {
-  navigation: [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Blog", href: "/blog" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Contact", href: "/contact" },
-    { label: "Get a Quote", href: "/quote" },
-  ],
-};
+const navigation = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
+  { label: "Get a Quote", href: "/quote" },
+];
+
+const linkClass = "text-ink-foreground/85 hover:text-ink-foreground hover:underline underline-offset-4";
 
 export default function Footer() {
   return (
-    <footer className="relative mt-32 border-t border-border">
-      {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-6 -mt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative gradient-border p-8 md:p-12 overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-foreground">
-                Ready to transform your business?
-              </h3>
-              <p className="text-muted-foreground mt-2">
-                Smart Solutions. Real Results.
-              </p>
-            </div>
-             <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="pt-4"
-                >
-                                <Link
-                href="/contact"
-                className="inline-flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-accent-cta to-blue-600 text-white font-semibold rounded-full"
-              >
-                Contact Us
-              </Link>
-
-                </motion.div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Main Footer */}
+    <footer className="mt-24 bg-ink text-ink-foreground border-t border-border">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="relative w-10 h-10">
-                <Image
-                  src="/logo-emblem.png"
-                  alt="H.F. Tech Consulting logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain"
-                />
+        <div className="grid sm:grid-cols-2 md:grid-cols-[1.4fr_1fr_1.4fr_1fr] gap-12">
+          <div>
+            <Link href="/" className="flex items-center gap-3 mb-5">
+              <div className="relative w-10 h-10 rounded-md bg-ink-foreground">
+                <Image src="/logo-emblem.png" alt="H.F. Tech Consulting logo" fill sizes="40px" className="object-contain p-1" />
               </div>
-              <div>
-                <span className="text-foreground font-bold text-lg tracking-tight block leading-tight">
-                  H.F. Tech
-                </span>
-                <span className="text-accent-secondary text-xs tracking-widest uppercase">
-                  Consulting
-                </span>
-              </div>
+              <span className="font-semibold text-lg tracking-tight">H.F. Tech Consulting</span>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              Business Technology Consulting. Helping businesses leverage technology 
-              to improve efficiency, reduce costs, and support growth.
-            </p>
-            <p className="text-accent-secondary text-sm font-medium">
-              Smart Solutions. Real Results.
+            <p className="text-sm leading-relaxed text-ink-foreground/70 max-w-xs">
+              Workflow automation, custom software, websites and IT support for small and midsize
+              businesses in Houston and across Texas.
             </p>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h4 className="text-foreground font-semibold mb-4">Navigation</h4>
-            <ul className="space-y-3">
-              {footerLinks.navigation.map((link) => (
+          <nav aria-label="Footer">
+            <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-ink-foreground/60 mb-4">Site</h2>
+            <ul className="space-y-2.5 text-sm">
+              {navigation.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-1 group"
-                  >
+                  <Link href={link.href} className={linkClass}>
                     {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Services */}
           <div>
-            <h4 className="text-foreground font-semibold mb-4">Services</h4>
-            <ul className="space-y-3">
+            <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-ink-foreground/60 mb-4">Services</h2>
+            <ul className="space-y-2.5 text-sm">
               {services.map((service) => (
-                <li key={service.slug} className="text-muted-foreground text-sm">
-                  <Link
-                    href={`/services/${service.slug}`}
-                    className="hover:text-foreground transition-colors duration-200"
-                  >
+                <li key={service.slug}>
+                  <Link href={`/services/${service.slug}`} className={linkClass}>
                     {service.shortTitle}
                   </Link>
                 </li>
@@ -125,56 +58,29 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="text-foreground font-semibold mb-4">Contact</h4>
-            <ul className="space-y-4">
+            <h2 className="font-mono text-xs uppercase tracking-[0.08em] text-ink-foreground/60 mb-4">Contact</h2>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <a
-                  href="mailto:alex@hftechconsulting.com"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm">alex@hftechconsulting.com</span>
+                <a href="tel:+12812233570" className={linkClass}>
+                  (281) 223-3570
                 </a>
               </li>
               <li>
-                <a
-                  href="tel:+12812233570"
-                  className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm">(281) 223-3570</span>
+                <a href="mailto:alex@hftechconsulting.com" className={`${linkClass} break-all`}>
+                  alex@hftechconsulting.com
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-muted-foreground">
-                <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span className="text-sm">Houston, Texas</span>
-              </li>
+              <li className="text-ink-foreground/70">Houston, Texas</li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-sm text-muted-foreground text-center sm:text-left">
-            <p>© 2026 H.F. Tech Consulting. All rights reserved.</p>
-            <Link href="/privacy" className="hover:text-foreground transition-colors">
-              Privacy Policy
-            </Link>
-          </div>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              Available for projects
-            </span>
-          </div>
+        <div className="mt-14 pt-6 border-t border-ink-foreground/15 flex flex-col sm:flex-row gap-3 justify-between text-sm text-ink-foreground/60">
+          <p>© 2026 H.F. Tech Consulting</p>
+          <Link href="/privacy" className="hover:text-ink-foreground hover:underline underline-offset-4">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>

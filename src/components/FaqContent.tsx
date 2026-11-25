@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Search, X } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHero from "@/components/PageHero";
-import { FaqVisual } from "@/components/HeroVisuals";
 import FaqAccordion from "@/components/FaqAccordion";
 import { faqCategories } from "@/lib/faq-data";
 
@@ -29,27 +28,24 @@ export default function FaqContent() {
   const matchCount = categories.reduce((sum, category) => sum + category.faqs.length, 0);
 
   return (
-    <main className="relative pt-32 pb-20">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-        <div className="absolute inset-0 circuit-pattern opacity-30" />
-      </div>
+    <main className="pt-12 pb-20">
 
       <div className="relative max-w-5xl mx-auto px-6">
         <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "FAQ", href: "/faq" }]} />
 
         <PageHero
-          eyebrow="Frequently Asked Questions"
-          headline={[{ text: "Questions," }, { text: "answered.", className: "gradient-text" }]}
+          label="FAQ"
+          title="Frequently asked questions"
           description={
             <>
-              Answers to the questions we hear most from businesses considering automation,
-              custom software, or ongoing IT support. Don&apos;t see what you&apos;re looking for?
-              Reach out and we&apos;ll get back to you directly.
+              The questions that come up most from businesses considering automation, custom
+              software or ongoing IT support. Don&apos;t see yours?{" "}
+              <Link href="/contact" className="text-accent underline underline-offset-4">
+                Ask directly
+              </Link>
+              .
             </>
           }
-          visual={<FaqVisual />}
         />
 
         <div className="max-w-4xl">
@@ -62,7 +58,7 @@ export default function FaqContent() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search questions (try &quot;cost&quot; or &quot;healthcare&quot;)"
               aria-label="Search frequently asked questions"
-              className="w-full rounded-full border border-border bg-card pl-13 pr-12 py-4 text-foreground placeholder:text-muted-foreground focus:border-accent/60 focus:outline-none transition-colors [&::-webkit-search-cancel-button]:hidden"
+              className="w-full rounded-md border border-border bg-card pl-13 pr-12 py-4 text-foreground placeholder:text-muted-foreground focus:border-accent/60 focus:outline-none transition-colors [&::-webkit-search-cancel-button]:hidden"
             />
             {query && (
               <button
@@ -97,12 +93,8 @@ export default function FaqContent() {
               {categories.map((category, categoryIndex) => (
                 <motion.div
                   key={category.category}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: categoryIndex * 0.05 }}
                 >
-                  <h2 className="text-2xl font-bold text-foreground mb-6">{category.category}</h2>
+                  <h2 className="text-2xl font-semibold text-foreground mb-6">{category.category}</h2>
                   <FaqAccordion
                     // Remount when the search changes so the first match opens.
                     key={term}
@@ -117,9 +109,6 @@ export default function FaqContent() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           className="mt-32 text-center"
         >
           <p className="text-muted-foreground mb-8">
@@ -127,10 +116,10 @@ export default function FaqContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover transition-all duration-200 group"
           >
             {"Get in Touch"}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
       </div>

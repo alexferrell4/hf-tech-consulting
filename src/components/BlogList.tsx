@@ -33,7 +33,7 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
           <button
             onClick={() => setActive(null)}
             aria-pressed={active === null}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               active === null
                 ? "bg-accent-cta text-accent-foreground"
                 : "bg-muted text-muted-foreground hover:text-accent hover:bg-accent/10"
@@ -46,7 +46,7 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
               key={category}
               onClick={() => setActive(category)}
               aria-pressed={active === category}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 active === category
                   ? "bg-accent-cta text-accent-foreground"
                   : "bg-muted text-muted-foreground hover:text-accent hover:bg-accent/10"
@@ -92,7 +92,7 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
               )}
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
-                  <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium">
+                  <span className="px-2.5 py-1 rounded-md bg-accent/10 text-accent font-medium">
                     {post.category}
                   </span>
                   <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -107,7 +107,7 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
                 </p>
                 <span className="inline-flex items-center gap-2 text-accent text-sm font-medium">
                   Read article
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                 </span>
               </div>
             </Link>

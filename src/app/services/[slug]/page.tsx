@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { services, getServiceBySlug, getServiceFaqs } from "@/lib/services-data";
 import { contactHref } from "@/lib/contact-link";
-import Reveal from "@/components/Reveal";
 import BeforeAfter from "@/components/BeforeAfter";
 import FaqAccordion from "@/components/FaqAccordion";
 import { serviceIconMap } from "@/lib/service-icons";
@@ -97,13 +96,8 @@ export default async function ServiceDetailPage({
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(faqJsonLd(serviceFaqs)) }}
       />
 
-      <main className="relative pt-32 pb-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-          <div className="absolute inset-0 circuit-pattern opacity-30" />
-        </div>
-
-        <div className="relative max-w-4xl mx-auto px-6">
+      <main className="pt-12 pb-20">
+        <div className="max-w-4xl mx-auto px-6">
           <Breadcrumbs
             items={[
               { name: "Home", href: "/" },
@@ -112,21 +106,28 @@ export default async function ServiceDetailPage({
             ]}
           />
 
-          <div className="rise-in inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-accent/30 bg-accent/10 mb-6">
-            <Icon className="w-7 h-7 text-accent" strokeWidth={1.5} />
-          </div>
+          <p className="rise-in eyebrow mb-5 flex items-center gap-2">
+            <Icon className="w-4 h-4" strokeWidth={1.75} aria-hidden="true" />
+            Service
+          </p>
 
-          <h1 className="rise-in text-4xl sm:text-5xl font-bold text-foreground mb-6 text-balance" style={{ "--delay": "80ms" } as CSSProperties}>
+          <h1
+            className="rise-in text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.08] text-foreground mb-6 text-balance"
+            style={{ "--delay": "60ms" } as CSSProperties}
+          >
             {service.title}
           </h1>
 
-          <p className="rise-in text-xl text-muted-foreground leading-relaxed mb-16" style={{ "--delay": "160ms" } as CSSProperties}>
+          <p
+            className="rise-in text-xl text-muted-foreground leading-relaxed pb-12 mb-16 border-b border-border"
+            style={{ "--delay": "120ms" } as CSSProperties}
+          >
             {service.intro}
           </p>
 
           {/* The Problem */}
-          <Reveal as="section" className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-6">The Problem</h2>
+          <section className="mb-16">
+            <h2 className="text-2xl font-semibold text-foreground mb-6">The problem</h2>
             <div className="space-y-4">
               {service.problem.map((paragraph, i) => (
                 <p key={i} className="text-muted-foreground leading-relaxed">
@@ -134,11 +135,11 @@ export default async function ServiceDetailPage({
                 </p>
               ))}
             </div>
-          </Reveal>
+          </section>
 
           {/* What's Included */}
-          <Reveal as="section" className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-6">What&apos;s Included</h2>
+          <section className="mb-16">
+            <h2 className="text-2xl font-semibold text-foreground mb-6">What&apos;s included</h2>
             <div className="grid sm:grid-cols-2 border-t border-border">
               {service.features.map((feature) => (
                 <div key={feature} className="flex items-center gap-3 py-3.5 border-b border-border">
@@ -147,11 +148,11 @@ export default async function ServiceDetailPage({
                 </div>
               ))}
             </div>
-          </Reveal>
+          </section>
 
           {/* Who This Is For */}
-          <Reveal as="section" className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-6">Who This Is For</h2>
+          <section className="mb-16">
+            <h2 className="text-2xl font-semibold text-foreground mb-6">Who it&apos;s for</h2>
             <ul className="border-t border-border">
               {service.whoFor.map((item) => (
                 <li key={item} className="flex items-start gap-3 py-3.5 border-b border-border">
@@ -160,84 +161,78 @@ export default async function ServiceDetailPage({
                 </li>
               ))}
             </ul>
-          </Reveal>
+          </section>
 
-          {/* Our Process: vertical timeline */}
+          {/* Process: vertical timeline */}
           <section className="mb-16">
-            <Reveal>
-              <h2 className="text-2xl font-bold text-foreground mb-8">Our Process</h2>
-            </Reveal>
-            <ol className="relative ml-5 border-l border-accent/30">
+            <h2 className="text-2xl font-semibold text-foreground mb-8">How it&apos;s done</h2>
+            <ol className="relative ml-5 border-l border-foreground">
               {service.process.map((step, i) => (
-                <Reveal as="li" key={step.title} delay={i * 0.08} className="relative pl-10 pb-10 last:pb-0">
+                <li key={step.title} className="relative pl-10 pb-10 last:pb-0">
                   <span className="stepper-node absolute -left-[1.375rem] top-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="text-lg font-semibold text-foreground pt-2 mb-2">{step.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-                </Reveal>
+                </li>
               ))}
             </ol>
           </section>
 
           {/* Before / after */}
-          <Reveal as="section" className="mb-16">
+          <section className="mb-16">
             <BeforeAfter before={service.before} after={service.outcomes} />
-          </Reveal>
+          </section>
 
           {/* FAQ */}
-          <Reveal as="section" className="mb-16">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              Common Questions About {service.shortTitle}
+          <section className="mb-16">
+            <h2 className="text-2xl font-semibold text-foreground mb-6">
+              Common questions about {service.plainName}
             </h2>
             <FaqAccordion faqs={serviceFaqs} />
-          </Reveal>
+          </section>
 
           {/* CTA */}
-          <section className="mb-20 text-center">
-            <p className="text-2xl font-bold text-foreground mb-4 text-balance">
-              Ready to talk about {service.shortTitle.toLowerCase()}?
+          <section className="mb-20 bg-ink text-ink-foreground border border-border rounded-md p-8 sm:p-10">
+            <p className="text-2xl font-semibold tracking-tight mb-3 text-balance">
+              Want to talk about {service.plainName} for your business?
             </p>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Schedule a consultation and we&apos;ll walk through your current process and what a solution could look like.
+            <p className="text-ink-foreground/70 mb-8 max-w-xl">
+              A first conversation covers how things work today and what a solution could look like.
             </p>
-            <Link
-              href={contactHref({ service: service.slug })}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
-            >
-              Schedule Consultation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href={`/quote?service=${service.slug}`}
-              className="inline-flex items-center gap-2 px-8 py-4 ml-0 sm:ml-4 mt-4 sm:mt-0 border border-border text-foreground font-medium rounded-full hover:bg-muted active:scale-[0.97] transition-all duration-200"
-            >
-              Get a Quote
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href={`/quote?service=${service.slug}`}
+                className="inline-flex items-center justify-center px-6 py-3.5 bg-ink-foreground text-ink font-medium rounded-md hover:bg-white transition-colors"
+              >
+                Get a quote
+              </Link>
+              <Link
+                href={contactHref({ service: service.slug })}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-ink-foreground/40 font-medium rounded-md hover:border-ink-foreground transition-colors"
+              >
+                Schedule a consultation
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </div>
           </section>
 
           {/* Related Services */}
-          <section className="border-t border-border pt-12">
-            <h2 className="eyebrow mb-6">
-              Related Services
-            </h2>
-            <div className="grid sm:grid-cols-3 gap-4">
-              {otherServices.map((other) => {
-                const OtherIcon = serviceIconMap[other.icon];
-                return (
+          <section>
+            <h2 className="text-lg font-semibold text-foreground mb-4">Related services</h2>
+            <ul className="border-t border-border">
+              {otherServices.map((other) => (
+                <li key={other.slug}>
                   <Link
-                    key={other.slug}
                     href={`/services/${other.slug}`}
-                    className="group gradient-border p-6 hover:glow transition-shadow duration-300"
+                    className="group flex items-center justify-between gap-4 py-4 border-b border-border text-foreground hover:text-accent transition-colors"
                   >
-                    <OtherIcon className="w-6 h-6 text-accent mb-3" />
-                    <span className="text-foreground font-medium group-hover:text-accent transition-colors">
-                      {other.shortTitle}
-                    </span>
+                    <span className="font-medium">{other.shortTitle}</span>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-accent" aria-hidden="true" />
                   </Link>
-                );
-              })}
-            </div>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
       </main>

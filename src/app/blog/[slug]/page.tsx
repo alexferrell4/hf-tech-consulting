@@ -127,11 +127,7 @@ export default async function BlogPostPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(articleJsonLd) }} />
 
       <ReadingProgress />
-      <main className="relative pt-32 pb-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-          <div className="absolute inset-0 circuit-pattern opacity-30" />
-        </div>
+      <main className="pt-12 pb-20">
 
         <article className="relative max-w-3xl mx-auto px-6">
           <Breadcrumbs
@@ -143,7 +139,7 @@ export default async function BlogPostPage({
           />
 
           <div className="flex items-center gap-3 text-xs text-muted-foreground mb-6">
-            <span className="px-2.5 py-1 rounded-full bg-accent/10 text-accent font-medium">
+            <span className="px-2.5 py-1 rounded-md bg-accent/10 text-accent font-medium">
               {post.category}
             </span>
             <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -158,7 +154,7 @@ export default async function BlogPostPage({
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-8 text-balance">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-foreground mb-8 text-balance">
             {post.title}
           </h1>
 
@@ -206,7 +202,7 @@ export default async function BlogPostPage({
           <div className="space-y-12">
             {post.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-bold text-foreground mb-4">{section.heading}</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">{section.heading}</h2>
                 {section.paragraphs && (
                   <div className="space-y-4">
                     {section.paragraphs.map((paragraph, i) => (
@@ -249,7 +245,7 @@ export default async function BlogPostPage({
                   <Link
                     key={service.slug}
                     href={`/services/${service.slug}`}
-                    className="px-4 py-2 bg-muted rounded-full text-sm text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors"
+                    className="px-4 py-2 bg-muted rounded-md text-sm text-muted-foreground hover:text-accent hover:bg-accent/10 transition-colors"
                   >
                     {service.shortTitle}
                   </Link>
@@ -259,7 +255,7 @@ export default async function BlogPostPage({
           )}
 
           <section className="mt-16 gradient-border p-8 text-center">
-            <p className="text-xl font-bold text-foreground mb-3">
+            <p className="text-xl font-semibold text-foreground mb-3">
               Have a process like this in your business?
             </p>
             <p className="text-muted-foreground mb-6">
@@ -267,10 +263,10 @@ export default async function BlogPostPage({
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-cta text-accent-foreground font-medium rounded-full hover:bg-accent-cta/90 active:scale-[0.97] transition-all duration-200 group"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-cta text-accent-foreground font-medium rounded-md hover:bg-accent-cta-hover transition-all duration-200 group"
             >
               Schedule Consultation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </section>
 

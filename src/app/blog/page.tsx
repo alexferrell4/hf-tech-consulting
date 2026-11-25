@@ -4,7 +4,6 @@ import { breadcrumbJsonLd, buildOpenGraph, jsonLdHtml, SITE_NAME, SITE_URL } fro
 import Breadcrumbs from "@/components/Breadcrumbs";
 import BlogList from "@/components/BlogList";
 import PageHero from "@/components/PageHero";
-import { BlogVisual } from "@/components/HeroVisuals";
 
 const title = "Blog & Insights";
 const description =
@@ -51,23 +50,14 @@ export default function BlogIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(breadcrumbs) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(blogJsonLd) }} />
 
-      <main className="relative pt-32 pb-20">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/3 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" />
-          <div className="absolute inset-0 circuit-pattern opacity-30" />
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-6">
+      <main className="pt-12 pb-20">
+        <div className="max-w-7xl mx-auto px-6">
           <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Blog", href: "/blog" }]} />
 
           <PageHero
-            eyebrow="Blog & Insights"
-            headline={[
-              { text: "Practical guidance for" },
-              { text: "small business technology", className: "gradient-text" },
-            ]}
-            description="Straightforward articles on workflow automation, software, cloud solutions, and IT support — written for business owners, not engineers."
-            visual={<BlogVisual />}
+            label="Blog"
+            title="Practical guidance on small business technology"
+            description="Articles on workflow automation, software, cloud and IT support, written for business owners rather than engineers."
           />
 
           <BlogList posts={posts} />
